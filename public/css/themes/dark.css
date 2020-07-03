@@ -40,7 +40,8 @@
     --table-font: #AFAFAF;
     --table-header-bg: #2f3033;
     --row-border-color: #323232;
-    --row-premium: rgba(94, 114, 238, 0.1);
+    
+    --row-premium: rgba(144, 202, 249, 0.18);
 
     /** Misc Fonts */
     --muted-color: #777;

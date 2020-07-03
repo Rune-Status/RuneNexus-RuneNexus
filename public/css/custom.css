@@ -130,6 +130,14 @@ a:not(.nav-link):not(.dropdown-item):not(.page-link):not(.btn) {
     background: var(--card-header) !important;
     color: var(--card-header-font) !important;
 }
+.modal-content {
+    background-color: var(--card-bg) !important;
+}
+@media(min-width: 576px) {
+    .modal-content {
+        box-shadow: 0 15px 35px rgba(50,50,50,.2), 0 5px 15px rgba(0,0,0,.17);
+    }
+}
 
 .page-item.active .page-link {
     color: var(--btn-font) !important;
@@ -262,4 +270,24 @@ input.form-control {
 }
 .border-left {
     border-left: .0625rem solid var(--row-border-color) !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background:  var(--card-bg);
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--btn-bg);
+}
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--btn-hover-bg);
 }

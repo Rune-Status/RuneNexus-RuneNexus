@@ -2,22 +2,16 @@
         tabindex="-1"
         role="dialog"
         aria-labelledby="loginModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" style="backdrop-filter: blur(3px);">
 
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
-
-            <div class="alert-box">
-                <div class="alert mb-0" id="notice">
-                    &nbsp;
-                </div>
-            </div>
-            
-            <div class="modal-body text-center pt-5 py-3">
-                <div class="text-primary text-center">
+            <div class="modal-body text-center">
+                <div class="text-primary text-center py-4">
                     {{ icon('discord', 96, 96) }}
                 </div>
-                <h3 class="mb-0 text-dark">Login with Discord</h3>
+
+                <h3 class="mb-0">Login with Discord</h3>
                 <p class="small mb-5">
                     Click below to log in using your Discord Account.<br>Registration is not required.
                 </p>
