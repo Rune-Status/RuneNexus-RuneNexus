@@ -33,7 +33,7 @@
 
     /** Cards */
     --card-bg: #FFF;
-    --card-header: #3c4d69;
+    --card-header: transparent;
     --card-header-font: #FFF;
 
     /** Tables */

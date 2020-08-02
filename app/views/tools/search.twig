@@ -41,26 +41,62 @@
     </table>
 </div>
 
-<div class="m-auto text-center">
-    <a href="#" class="btn btn-link" id="pageBtn" data-page="{{ results['first'] }}">
-        <i class="far fa-angle-double-left fa-fw"></i>
-    </a>
+{% set totalPages = servers.lastPage() %}
+{% set current = servers.currentPage() %}
 
-    <a href="#" class="btn btn-link" id="pageBtn" data-page="{{ results['before'] }}">
-        <i class="far fa-angle-left fa-fw"></i>
-    </a>
-    
-    Page {{ results['current'] }} of {{ results['total_pages'] }}
+<nav aria-label="servernav" class="mt-5">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {{ results['current'] == 1 ? 'disabled' : '' }}">
+            <a class="page-link" id="pageBtn" data-page="{{ results['first'] }}" href="#">
+                 {{ icon('chevron-bar-left', 14, 14) }}
+            </a>
+        </li>
 
-    <a href="#" class="btn btn-link ml-2" id="pageBtn" data-page="{{ results['next'] }}">
-        <i class="far fa-angle-right fa-fw"></i>
-    </a>
+        <li class="page-item {{ results['current'] == 1 ? 'disabled' : '' }}">
+            <a class="page-link"  id="pageBtn" data-page="{{ results['before'] }}" href="#">
+                {{ icon('chevron-left', 14, 14) }}
+            </a>
+        </li>
 
-    <a href="#" class="btn btn-link" id="pageBtn" data-page="{{ results['last'] }}">
-        <i class="far fa-angle-double-right fa-fw"></i>
-    </a>
+        {% if results['total_pages'] > 5 %}
+            {% set start = results['current'] < 3 ? 1 : results['current'] - 2 %}
+            {% set end   = start < 4 ? start + 4 : results['current'] + 2 %}
 
-</div>
+            {% if end > results['total_pages'] %}
+                {% set end = results['total_pages'] %}
+            {% endif %}
+
+            {% if start + 4 >= results['total_pages'] %}
+                {% set start = results['total_pages'] - 4 %}
+            {% endif %}
+        {% else %}
+            {% set start = 1 %}
+            {% set end   = results['last'] %}
+        {% endif %}
+
+        {% for p in start..end %}
+        <li class="page-item {{ results['current'] == p ? ' active' : ''}}">
+            <a class="page-link" href="#" id="pageBtn" data-page="{{ p }}">
+                {{ p }}
+            </a>
+        </li>
+        {% endfor %}
+
+        <li class="page-item {{ results['current'] >= results['total_pages'] ? 'disabled' : '' }}">
+            <a class="page-link" 
+                href="#" id="pageBtn" data-page="{{ results['next'] }}">
+                {{ icon('chevron-right', 14, 14) }}
+            </a>
+        </li>
+
+        <li class="page-item {{ results['current'] >= results['total_pages'] ? 'disabled' : '' }}">
+            <a class="page-link" 
+                href="#" id="pageBtn" data-page="{{ results['last'] }}">
+                {{ icon('chevron-bar-right', 14, 14) }}
+            </a>
+        </li>
+    </ul>
+</nav>
 
 <script>
     $('[data-toggle="popover"]').popover();
