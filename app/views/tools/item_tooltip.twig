@@ -1,4 +1,3 @@
-
 <div class="py-3 px-0">
     <div class="d-flex align-items-center">
         <div class="flex-fill px-3">
@@ -16,13 +15,13 @@
         Release Date: {{ item['release_date'] }}
     </div>
     <div class="list-group-item p-2 border-0 bg-transparent">
-        Members: <i class="fal fa-fw fa-{{ item['members'] == 1 ? "check text-success" : "times text-danger" }}"></i>
+        Members: {{ item['members'] == 1 ? "Yes" : "No" }}
     </div>
     <div class="list-group-item p-2  border-0 bg-transparent">
-        Tradeable: <i class="fal fa-fw fa-{{ item['tradeable'] == 1 ? "check text-success" : "times text-danger" }}"></i>
+        Tradeable: {{ item['tradeable'] == 1 ? "Yes" : "No" }}
     </div>
     <div class="list-group-item p-2 border-0 bg-transparent">
-        Value: <i class="fal fa-coins fa-fw"></i> {{ item['cost']|number_format }}
+        Value: {{ item['cost']|number_format }}gp
     </div>
 </div>
 
@@ -36,18 +35,24 @@
     </div>
     <div class="d-flex text-center py-2">
         <div class="flex-fill px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/stab.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/stab.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
-                    <i class="fas fa-sword"></i> {{ item['equipment']['attack_stab'] }}
+                    {{ item['equipment']['attack_stab'] }}
                 </span>
+                
                 <span class="badge bg-transparent {{ badge }} w-100">
-                    <i class="fas fa-shield-alt"></i> {{ item['equipment']['defence_stab'] }}
+                    {{ icon('shield-shaded') }}
+                    {{ item['equipment']['defence_stab'] }}
                 </span>
             </p>
         </div>
         <div class="flex-fill border-left px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/slash.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/slash.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['attack_slash'] }}
@@ -58,7 +63,9 @@
             </p>
         </div>
         <div class="flex-fill border-left px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/crush.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/crush.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['attack_crush'] }}
@@ -69,7 +76,9 @@
             </p>
         </div>
         <div class="flex-fill border-left  px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/magic.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/magic.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['attack_magic'] }}
@@ -80,7 +89,9 @@
             </p>
         </div>
         <div class="flex-fill border-left px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/ranged.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/ranged.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['attack_ranged'] }}
@@ -94,12 +105,14 @@
 </div>
 
 <div class="card border-0 mb-3">
-    <div class="card-header py-2 pl-2 bg-transparent text-{{ theme == "dark" ? "white" : "dark" }}">
+    <div class="card-header py-2 pl-2 bg-transparent">
         Other Bonuses
     </div>
     <div class="d-flex text-center py-2">
         <div class="flex-fill px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/melee_strength.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/melee_strength.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     {% set stat = item['equipment']['melee_strength'] %}
@@ -117,7 +130,9 @@
             </p>
         </div>
         <div class="flex-fill border-left px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/ranged_strength.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/ranged_strength.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['ranged_strength'] }}</
@@ -125,7 +140,9 @@
             </p>
         </div>
         <div class="flex-fill border-left px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/magic_damage.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/magic_damage.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['magic_damage'] }}
@@ -133,7 +150,9 @@
             </p>
         </div>
         <div class="flex-fill border-left  px-2">
-            <p class="mb-2"><img src="{{ url('public/img/item_icons/prayer.png') }}"></p>
+            <p class="mb-2">
+                <img src="{{ url('public/img/item_icons/prayer.png') }}">
+            </p>
             <p class="mb-0">
                 <span class="badge bg-transparent {{ badge }} w-100">
                     <i class="fas fa-sword"></i> {{ item['equipment']['prayer'] }}
@@ -144,4 +163,6 @@
 </div>
 {% endif %}
 
-<a href="{{ item['wiki_url'] }}" target="_blank" class="btn btn-block btn-link">View on Wiki</a>
+<a href="{{ item['wiki_url'] }}" target="_blank" class="btn btn-block btn-link">
+    View on Wiki
+</a>

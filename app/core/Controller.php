@@ -90,6 +90,8 @@ class Controller {
 
         if ($theme && in_array($theme, $themes)) {
             $this->set("theme", $theme);
+        } else {
+            $this->set("theme", "light");
         }
 
         if (!$canAccess) {
