@@ -46,12 +46,12 @@
                 {% set defence = item['equipment']['defence_'~stat] %}
 
                 <span class="badge bg-transparent {{ badge }} w-100 {{ attack == 0 ? '' : (attack < 0 ? 'text-danger' : 'text-success') }}">
-                    {{ attack == 0 ? '' : (attack < 0 ? '-' : '+') }}
+                    {{ attack <= 0 ? '' : '+' }}
                     {{ attack }}
                 </span>
 
                 <span class="badge bg-transparent {{ badge }} w-100 {{ defence == 0 ? '' : (defence < 0 ? 'text-danger' : 'text-success') }}">
-                    {{ defence == 0 ? '' : (defence < 0 ? '-' : '+') }}
+                    {{ defence <= 0 ? '' : '+' }}
                     {{ defence }}
                 </span>
             </p>
@@ -77,7 +77,7 @@
                     {% set statVal = item['equipment'][stat] %}
                     <i class="fas fa-sword"></i> 
                     <span class="{{ statVal == 0 ? '' : (statVal < 0 ? 'text-danger' : 'text-success') }}">
-                        {{ statVal == 0 ? '' : (statVal < 0 ? '-' : '+') }}
+                        {{ statVal <= 0 ? '' : '+' }}
                         {{ statVal }}
                     </span>
                 </span>
