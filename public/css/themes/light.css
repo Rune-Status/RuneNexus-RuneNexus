@@ -34,7 +34,7 @@
     /** Cards */
     --card-bg: #FFF;
     --card-header: transparent;
-    --card-header-font: #FFF;
+    --card-header-font: #000;
 
     /** Tables */
     --table-font: #3c4d69;
