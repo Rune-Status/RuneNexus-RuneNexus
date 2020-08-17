@@ -40,8 +40,7 @@ class ServersController extends Controller {
 
                         $endpoint = $api_url."?address=".$data['server_ip']."&port=".$data['server_port'];
                         $res      = json_decode($client->request('GET', $endpoint)->getBody(), true);
-        
-                        $success = $res['success'];
+                        $success  = $res['success'];
         
                         $create->is_online = $success;
                         $create->ping = $success ? $res['ping'] : -1;
@@ -69,6 +68,29 @@ class ServersController extends Controller {
     	return true;
     }
 
+    public function delete($id) {
+        $server = Servers::getServer($id);
+
+        if (!$server) {
+            $this->setView("errors/show404");
+            return false;
+        }
+
+        if ($server->owner != $this->user->user_id) {
+            $this->set("errors/show401");
+            return false;
+        }
+
+        if ($this->request->isPost()) {
+            $server->delete();
+            $this->request->redirect("profile");
+            exit;
+        }
+
+        $this->set("server", $server);
+        return true;
+    }
+    
     public function edit($id) {
         $server = Servers::getServer($id);
 
@@ -77,10 +99,10 @@ class ServersController extends Controller {
             return false;
         }
 
-        /*if ($server->owner != $this->user->user_id) {
+        if ($server->owner != $this->user->user_id) {
             $this->setView("errors/show401");
             return false;
-        }*/
+        }
         
         if ($this->request->isPost()) {
             $data = [

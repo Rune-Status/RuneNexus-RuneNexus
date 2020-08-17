@@ -37,6 +37,14 @@ class PageRouter extends Router {
             return $this->setRoute('servers', 'edit', ['id' => $id]);
         });
 
+        $this->all('servers/delete/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
+            return $this->setRoute('servers', 'delete', ['id' => $id]);
+        });
+
+        $this->all('servers/out/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
+            return $this->setRoute('index', 'out', ['id' => $id]);
+        });
+
         $this->post('servers/addvote', function() {
             return $this->setRoute('vote', 'addvote');
         });

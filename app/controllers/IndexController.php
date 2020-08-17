@@ -78,10 +78,10 @@ class IndexController extends Controller {
     }
 
     public function out($serverId) {
-        $server = Servers::getServer($id);
+        $server = Servers::getServer($serverId);
 
         if (!$server) {
-            $this->setView("errors/show404");
+            $this->setView("errors/show401");
             return false;
         }
 
@@ -89,6 +89,24 @@ class IndexController extends Controller {
 
         if (!$website) {
             $this->redirect("");
+            exit;
+        }
+
+        $out = Outbound::where("server_id", $server->id)
+            ->where("ip_address", $this->request->getAddress())
+            ->first();
+
+        if (!$out) {
+            $out = (new Outbound)->fill([
+                'server_id'  => $server->id,
+                'ip_address' => $this->request->getAddress(),
+                'clicks'     => 1,
+                'click_date' => time()
+            ])->save();
+        } else {
+            $out->clicks += 1;
+            $out->click_date = time();
+            $out->update();
         }
 
         $this->redirect($website, false);
