@@ -1,9 +1,16 @@
 <p><i class="fal fa-check-circle fa-5x text-success"></i></p>
 <h3>Payment Successful</h3>
 
-<p>Thank you for your purchase! <span class="text-success">{{ server.title }}</span>, has received
+<p>Thank you for your purchase! <span class="text-success">{{ server.title }}</span>
+{% if type == "premium" %}
+has received
      {{ (package.duration)/60/60/24 }} 
     days of premium!
+{% else %}
+    has has been given a sponsor slot for 
+    {{ (package.duration)/60/60/24 }} 
+   days!
+{% endif %}
 </p>
 
 <button type="button" class="btn btn-success" data-dismiss="modal">Ok, thanks!</button>

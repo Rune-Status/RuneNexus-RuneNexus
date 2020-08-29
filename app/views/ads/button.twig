@@ -1,6 +1,8 @@
 <div id="paypal-button-container"></div>
 
 <script>
+    modal = $('#preModal');
+
     var FUNDING_SOURCES = [
         paypal.FUNDING.PAYPAL
     ];
@@ -31,13 +33,13 @@
                             }
                         },
                         items: [{
-                            name: "{{ package.title }} Sponsor",
+                            name: "{{ package.title }} {{ packageType }} Package",
                             unit_amount: { 
                                 value: '{{ package.price|number_format(2) }}',
                                 currency_code: 'USD'
                             },
                             quantity: 1,
-                            sku: "{{ package.id }}"
+                            sku: "{{ packageType }}-{{ package.id }}"
                         }]
                     }]
                 });
@@ -49,7 +51,7 @@
                     
                 return actions.order.get().then(function(orderDetails) {
                     $.ajaxq('PaymentQueue', {
-                        url: '{{ url("sponsor/verify") }}',
+                        url: '{{ url("ads/verify") }}',
                         data: {
                             orderDetails: orderDetails,
                             server_id: "{{ server.id }}"
@@ -61,7 +63,8 @@
                                 modal.modal('show');
                                 $('#pp-notice').html("");
                             } else {
-                                let pp_key = json.token;
+                                let pp_key   = json.token; 
+                                let pkg_type = json.pkg_type;
 
                                 $('#pp-notice').removeClass("text-danger")
                                     .html("<i class='fad fa-spinner fa-pulse'></i> Processing...");
@@ -70,11 +73,12 @@
                                     console.log(orderDetails);
 
                                     $.ajaxq('PaymentQueue', {
-                                        url: '{{ url("sponsor/process") }}',
+                                        url: '{{ url("ads/process") }}',
                                         data: {
                                             orderDetails: orderDetails,
                                             server_id: "{{ server.id }}",
-                                            pp_key: pp_key
+                                            pp_key: pp_key,
+                                            pkg_type: pkg_type
                                         },
                                         type: 'POST',
                                         success: function (json) {

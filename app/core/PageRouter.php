@@ -88,24 +88,20 @@ class PageRouter extends Router {
         /**
          * Premium
          */
-        $this->all('premium', function() {
-            return $this->setRoute('premium', 'index');
+        $this->all('ads', function() {
+            return $this->setRoute('ads', 'index');
         });
 
-        $this->all('premium/([0-9]+)', function($package) {
-            return $this->setRoute('premium', 'select', ['package' => $package]);
+        $this->all('ads/button', function() {
+            return $this->setRoute('ads', 'button');
         });
 
-        $this->all('premium/button', function() {
-            return $this->setRoute('premium', 'button');
-        });
-
-        $this->all('premium/process', function() {
-            return $this->setRoute('premium', 'process');
+        $this->all('ads/process', function() {
+            return $this->setRoute('ads', 'process');
         });
         
-        $this->all('premium/verify', function() {
-            return $this->setRoute('premium', 'verify');
+        $this->all('ads/verify', function() {
+            return $this->setRoute('ads', 'verify');
         });
 
         /**

@@ -1,55 +1,67 @@
 {%  extends 'layout.twig' %}
 
 {% block content %}
-
-<div class="container mt-5">
-    <div class="row text-center">
-        <div class="col-sm-12">
-            <h3 class="display-3 mt-3 mb-0">Premium Packages</h3>
-            <p>Get a boost for your server which will increase visibility! Package duration <br>will
-                stack if you decide to upgrade later!
-            </p>
-        </div>
-    </div>
-</div>
-
-<section class="pricing-5 py-5" id="pricing-6">
+<section>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 d-flex justify-content-center flex-column">
-                <h3 class="display-3 mt-3">Choose a plan that best fits you</h3>
-                <ul class="nav nav-pills nav-pills-primary my-4" role="tablist">
+            <div class="col-sm-12 py-5">
+                
+                <ul class="nav nav-pills nav-pills-primary mb-5" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#commercial" role="tablist">
-                            Cheaper
+                        <a class="nav-link active" 
+                            data-toggle="tab"
+                            data-type="premium" 
+                            href="#premium" 
+                            id="typeSelect"
+                            role="tablist">
+                            Premium
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#personal" role="tablist">
-                            Expensive
+                        <a class="nav-link" 
+                            data-toggle="tab" 
+                            data-type="sponsor" 
+                            id="typeSelect"
+                            href="#sponsor" role="tablist">
+                            Sponsor Slot
                         </a>
                     </li>
                 </ul>
-                <p class="lead mt-0">
-                    Instant votes on all packages will also be applied at the beginning of every 
-                    month after reset.
-                </p>
-            </div>
-            <div class="col-lg-7 col-md-8 ml-auto ">
-                <div class="tab-content tab-space">
-                    <div class="tab-pane" id="personal">
-                        <div class="row">
-                            {% for package in expensive %}
-                            {% set features = package['features']|json_decode %}
 
-                            <div class="col-md-6">
-                                <div class="card card-pricing text-center mb-4 shadow-sm">
+                <div class="tab-content" id="pills-tabContent">
+
+                    <!-- Premium Packages Pane -->
+                    <div class="tab-pane show active text-center" 
+                        id="premium" 
+                        role="tabpanel" 
+                        aria-labelledby="premium-tab">
+
+                        <h4 class="display-4 mb-0 text-primary">Premium Packages</h4>
+                        <p class="small text-muted">
+                            Instant votes on all packages will also be applied at the beginning 
+                            of every month after reset.
+                        </p>
+
+                        <div class="row my-5">
+                            {% for package in premium_packages %}
+                            {% set features = package.features|json_decode %}
+
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="card shadow-sm">
                                     <div class="card-header bg-transparent">
-                                        <h6 class="text-uppercase ls-1 py-3 mb-0">{{ package['title'] }}</h6>
+                                        <h6 class="text-uppercase ls-1 py-3 mb-0">
+                                            {{ package['title'] }}
+                                        </h6>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="display-2">${{ package['price']|number_format(2) }}</div>
-                                        <span>{{ package['duration']/60/60/24 }} Days</span>
+                                    <div class="card-body text-center">
+                                        <div class="display-3 text-primary">
+                                            ${{ package['price']|number_format(2) }}
+                                        </div>
+
+                                        <span>
+                                            {{ package['duration']/60/60/24 }} Days
+                                        </span>
+                                        
                                         <ul class="list-unstyled my-4">
                                             {% for feature in features %}
                                             <li class="align-items-center">
@@ -73,36 +85,75 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="tab-pane active" id="commercial">
-                        <div class="row">
-                            {% for package in cheap %}
-                            {% set features = package['features']|json_decode %}
 
-                            <div class="col-md-6">
-                                <div class="card card-pricing text-center mb-4 shadow-sm">
+                    <!-- Sponsor Packages Pane -->
+                    <div class="tab-pane text-center" 
+                        id="sponsor" 
+                        role="tabpanel" 
+                        aria-labelledby="sponsor-tab">
+                        
+                        <h4 class="display-4 mb-0 text-primary">Sponsor Packages</h4>
+                        <p class="small text-muted">
+                           Have your server visible at the top of the server list, separated from everyone
+                           else for maximum visibility.
+                        </p>
+
+                        {% set slots = 3 - sponsors %}
+
+                        {% if slots > 0 %}
+                        <p class="font-weight-bold">
+                            Slots Available: 
+
+                            {% if slots == 3 %}
+                            <span class="text-success">{{ slots }}</span>
+                            {% elseif slots == 2 %}
+                            <span class="text-warning">{{ slots }}</span>
+                            {% elseif slots == 1 %}
+                            <span class="text-danger">{{ slots }}</span>
+                            {% endif %}
+                        </p>
+                        {% else %}
+                        <div class="text-danger">
+                            There are no slots available right now. A slot will be available in:<br>
+                            <span class="font-weight-bold">
+                                {{ timeLeft(nextslot.expires) }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        <div class="row my-5">
+                            {% for package in sponsor_packages %}
+                            {% set features = package.features|json_decode %}
+
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="card shadow-sm">
                                     <div class="card-header bg-transparent">
-                                        <h6 class="text-uppercase ls-1 py-3 mb-0">{{ package['title'] }}</h6>
+                                        <h6 class="text-uppercase ls-1 py-3 mb-0">
+                                            {{ package.title }}
+                                        </h6>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="display-2">${{ package['price']|number_format(2) }}</div>
-                                        <span>{{ package['duration']/60/60/24 }} Days</span>
+                                    <div class="card-body text-center">
+                                        <div class="display-3 text-primary">
+                                            ${{ package['price']|number_format(2) }}
+                                        </div>
+
+                                        <span>
+                                            {{ package['duration']/60/60/24 }} Days
+                                        </span>
+                                        
                                         <ul class="list-unstyled my-4">
-                                            {% for feature in features %}
                                             <li class="align-items-center">
-                                                {% if feature is null %}
-                                                <i class="fal fa-times text-danger"></i>
-                                                {% else %}
-                                                {{ feature|raw }}
-                                                {% endif %}
+                                                <strong class="text-primary">Maximum</strong> Visiblity
                                             </li>
-                                            {% endfor %}
                                         </ul>
                                     </div>
                                     <div class="card-footer bg-transparent">
                                         <a href="#" 
                                             id="package-select"
                                             data-package="{{ package['id'] }}"
-                                            class="btn btn-default {{ user is defined ? '' : 'disabled' }}">Select</a>
+                                            class="btn btn-default {{ user is defined ? '' : 'disabled' }}">
+                                            Select
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -110,12 +161,15 @@
                         </div>
                     </div>
                 </div>
+
+                {{ content|raw }}
             </div>
         </div>
     </div>
 </section>
 
-{% if user is defined and user is not null %}
+
+{% if user is defined and slots > 0 %}
 <section id="servers" class="pricing-5 py-5">
     <div class="container">
         <div class="row text-center">
@@ -130,9 +184,7 @@
         <div class="row">
             <div class="col-sm-12 col-lg-12">
                 {% for server in servers %}
-                {% set class = server.premium_expires > time() ? 'bg-primary' : '' %}
-
-                <div id="server" class="card shadow-sm mb-0 mb-3 ">
+                <div class="card shadow-sm mb-0 mb-3 {{ server.premium_expires > time() ? 'bg-premium' : '' }}">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div class="flex-fill" style="width:300px;">
@@ -172,7 +224,7 @@
     </div>
 </section>
 
-<div class="pricing-5 text-center" id="checkout">
+<section class="pricing-5 text-center" id="checkout">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 offset-lg-3 col-lg-6">
@@ -194,7 +246,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <div class="modal" id="preModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -208,20 +260,27 @@
     </div>
 </div>
 
-{{ content|raw }}
+{% endif %}
 
+{% if user is defined %}
 <script src="https://www.paypal.com/sdk/js?client-id={{ constant('paypal_production') }}"></script>
+{% endif %}
 
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
-    let modal = $('#preModal');
-   // modal.modal('show');
+    let type    = "premium";
+    let package = -1;
+    let server  = -1;
 
-    let package;
-    let server;
-
+    let modal       = $('#preModal');
     let paypalBtn   = $('#paypal-btn');
     let statusBlock = $('#pp-notice');
+
+    $('a[id="typeSelect"]').click(function(e) {
+        e.preventDefault();
+        type = $(this).data("type");
+        console.log(type);
+    });
 
     $('[id="package-select"]').on("click", function(event) {
         event.preventDefault();
@@ -233,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         })
 
         $(this).closest(".card").addClass("border-primary");
-        scrollTo($('#servers'));
+        //scrollTo($('#servers'));
     });
 
     $('[id="server-select"]').on("click", function(event) {
@@ -247,11 +306,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
         if ((typeof package !== "undefined") && (typeof server != "undefined")) {
             $(this).closest(".card").addClass("border-primary");
-        
-            //$('#paypal-btn').removeClass("text-danger").html("<i class='fad fa-spinner fa-pulse fa-3x mb-3'></i>");
             $('#checkout').removeClass("d-none");
-
-            //scrollTo($("[id='checkout']"));
             loadButton(package, server);
         }
     });
@@ -263,21 +318,22 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
 
     function loadButton(package, server) {
-        statusBlock.removeClass("text-danger").html("<i class='fad fa-spinner fa-pulse'></i>");
+        statusBlock.removeClass("text-danger").html("Loading...");
 
         $.ajaxq('PaymentQueue', {
-            url: '{{ url("premium/button") }}',
+            url: '{{ url("ads/button") }}',
             data: {
+                type: type,
                 package: package,
                 server: server
             },
             type: 'POST',
             success: function (json) {
-                
                 if (json.success) {
                     statusBlock.html("");
                     paypalBtn.html(json.message);
                 } else {
+                    console.log(json);
                     statusBlock.addClass("text-danger").html(json.message);
                 }
             },
@@ -288,5 +344,5 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
 });
 </script>
-{% endif %}
-{% endblock %}
+
+{%  endblock %}
