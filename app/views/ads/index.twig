@@ -36,7 +36,7 @@
                         role="tabpanel" 
                         aria-labelledby="premium-tab">
 
-                        <h4 class="display-4 mb-0 text-primary">Premium Packages</h4>
+                        <h4 class="display-4 mb-0 text-default">Premium Packages</h4>
                         <p class="small text-muted">
                             Instant votes on all packages will also be applied at the beginning 
                             of every month after reset.
@@ -54,7 +54,7 @@
                                         </h6>
                                     </div>
                                     <div class="card-body text-center">
-                                        <div class="display-3 text-primary">
+                                        <div class="display-3 text-default">
                                             ${{ package['price']|number_format(2) }}
                                         </div>
 
@@ -92,7 +92,7 @@
                         role="tabpanel" 
                         aria-labelledby="sponsor-tab">
                         
-                        <h4 class="display-4 mb-0 text-primary">Sponsor Packages</h4>
+                        <h4 class="display-4 mb-0 text-default">Sponsor Packages</h4>
                         <p class="small text-muted">
                            Have your server visible at the top of the server list, separated from everyone
                            else for maximum visibility.
@@ -133,7 +133,7 @@
                                         </h6>
                                     </div>
                                     <div class="card-body text-center">
-                                        <div class="display-3 text-primary">
+                                        <div class="display-3 text-default">
                                             ${{ package['price']|number_format(2) }}
                                         </div>
 
@@ -143,7 +143,7 @@
                                         
                                         <ul class="list-unstyled my-4">
                                             <li class="align-items-center">
-                                                <strong class="text-primary">Maximum</strong> Visiblity
+                                                <strong class="text-default">Maximum</strong> Visiblity
                                             </li>
                                         </ul>
                                     </div>
@@ -211,7 +211,7 @@
                                 <p class="small mb-0">Votes</p>
                             </div>
                             <div class="flex-fill text-right">
-                                <a href="#" id="server-select" class="btn btn-primary" data-server="{{ server.id }}">
+                                <a href="#" id="server-select" class="btn btn-default" data-server="{{ server.id }}">
                                     Select
                                 </a>
                             </div>
@@ -263,7 +263,7 @@
 {% endif %}
 
 {% if user is defined %}
-<script src="https://www.paypal.com/sdk/js?client-id={{ constant('paypal_production') }}"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ constant('paypal_sandbox') }}"></script>
 {% endif %}
 
 <script>

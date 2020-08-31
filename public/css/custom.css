@@ -3,6 +3,9 @@
 @font-face { font-family: "OpenSans-Light"; src: url('../fonts/OpenSans-Light.ttf'); font-display: swap;}
 @font-face { font-family: "OpenSans-Regular"; src: url('../fonts/OpenSans-Regular.ttf'); font-display: swap; }
 
+html {
+    scroll-behavior: smooth;
+}
 body {
     background: var(--body-bg) !important;
     color: var(--font-color) !important;
@@ -59,6 +62,10 @@ a:not(.nav-link):not(.dropdown-item):not(.page-link):not(.btn) {
     color: var(--link-color) !important;
 }
 
+.text-default {
+    color: var(--link-color) !important;
+}
+
 .table a:hover:not(.btn), 
 .table a:focus:not(.btn), 
 .table a:active:not(.btn) {
@@ -89,6 +96,25 @@ a:not(.nav-link):not(.dropdown-item):not(.page-link):not(.btn) {
 
 .bg-default, .btn-default {
     background-color: var(--btn-bg) !important;
+}
+
+.nav-pills .nav-link {
+    font-size: .875rem;
+    font-weight: 500;
+    padding: .75rem 1rem;
+    transition: all .15s ease;
+    color: var(--btn-bg) !important;
+    background-color: transparent;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: var(--btn-bg) !important;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--btn-bg);
+    background-color:rgba(0,0,0,0.03);
 }
 
 .btn-default {

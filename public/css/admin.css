@@ -5,13 +5,13 @@
 
 
 body {
-    background-color: #222;
+    background-color: #252525;
     color: #7c7c7c;
     font-family: "OpenSans-Regular" !important;
 }
 
 .navbar-vertical {
-    background-color:#252525 !important;
+    background-color:#282828 !important;
     box-shadow: 0 0 1.5rem rgba(0,0,0,.175) !important;
 }
 
@@ -74,9 +74,18 @@ body {
 }
 
 .card {
-    background-color: #252525;
+    background-color: #282828;
 }
-
+.card-header, .card-footer {
+    background-color: #2B2B2B;
+}
+.card-header {
+    border-bottom: solid 1px #2B2B2B;
+}
+.card-footer {
+    background-color: #2B2B2B;
+    border-top: solid 1px #2B2B2B;
+}
 .shadow-sm {
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.175)!important;
 }
@@ -122,6 +131,15 @@ pre {
 }
 
 input.form-control {
-    background-color: rgba(0,0,0,0.5);
-    border-color: rgba(255,255,255,0.1);
+    background-color: #323232;
+    color:#AAA;
+    border-color: #323232;
+}
+input.form-control:focus, input.form-control:active {
+    background-color: #373737;
+    border-color: #373737;
+}
+
+.table thead th {
+    border-bottom: 1px solid #333;
 }

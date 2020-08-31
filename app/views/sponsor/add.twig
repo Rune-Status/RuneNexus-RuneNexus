@@ -1,0 +1,84 @@
+{% extends 'admin_layout.twig' %}
+{% block content %}
+{% include 'admin/sidebar.twig' %}
+
+<div class="main-content" id="panel">
+    {% include "admin/header.twig" %}
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+
+                <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">Sponsor</h6>
+                                <h2 class="mb-0">Sponsor Packages</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if errors is defined %}
+                    <div class="alert alert-danger">
+                        <ul class="mb-0 pl-3">
+                            {% for key, value in errors %}
+                            <li>{{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                    <form action="{{ url('admin/sponsor/add/') }}" method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" name="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price (USD)</label>
+                                <input type="number" class="form-control" name="price"
+                                    min="1" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration</label>
+                                <input type="text" class="form-control" name="duration">
+                                <small>Value in seconds. 86400 = 1 day.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="icon">Icon</label>
+                                <input type="text" class="form-control" name="icon">
+                                <small>
+                                    Available icons: 
+                                    <a target="_blank" href="https://icons.getbootstrap.com/">
+                                        https://icons.getbootstrap.com/
+                                    </a>
+                                </small>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" 
+                                    name="visible"
+                                    id="visibility">
+                                <label class="custom-control-label" for="visibility">
+                                    Visible
+                                </label>
+                              </div>
+                        </div>
+
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <a href="" class="btn btn-link text-primary">Cancel</a>
+                        </div>
+                    </form>
+                    
+                </div>
+
+                {{ content|raw }}
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
