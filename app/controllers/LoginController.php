@@ -101,8 +101,6 @@ class LoginController extends Controller {
                     'message' => 'You have successfully logged in!'
                 ];
             }
-            
-            
         } catch (Exception $e) {
             return [
                 'success' => false,

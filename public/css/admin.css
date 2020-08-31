@@ -5,13 +5,13 @@
 
 
 body {
-    background-color: #252525;
+    background-color: #232427;
     color: #7c7c7c;
     font-family: "OpenSans-Regular" !important;
 }
 
 .navbar-vertical {
-    background-color:#282828 !important;
+    background-color:#292A2D !important;
     box-shadow: 0 0 1.5rem rgba(0,0,0,.175) !important;
 }
 
@@ -74,17 +74,17 @@ body {
 }
 
 .card {
-    background-color: #282828;
+    background-color: #292A2D;
 }
 .card-header, .card-footer {
-    background-color: #2B2B2B;
+    background-color: #292A2D;
 }
 .card-header {
-    border-bottom: solid 1px #2B2B2B;
+    border-bottom: solid 1px #292A2D;
 }
 .card-footer {
-    background-color: #2B2B2B;
-    border-top: solid 1px #2B2B2B;
+    background-color: #292A2D;
+    border-top: solid 1px #292A2D;
 }
 .shadow-sm {
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.175)!important;
