@@ -1,99 +1,93 @@
 {% extends 'admin_layout.twig' %}
+
 {% block content %}
-{% include 'admin/sidebar.twig' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
 
-<div class="main-content" id="panel">
-    {% include "admin/header.twig" %}
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-
-                <div class="card border-0 shadow-sm mb-3 overflow-hidden">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="text-uppercase text-muted ls-1 mb-1">Premium</h6>
-                                <h2 class="mb-0">Sponsor Packages</h2>
-                            </div>
-                            <div class="col text-right">
-                                <a href="{{ url('admin/sponsor/add') }}" class="btn btn-primary">
-                                    Add Package
+            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-muted ls-1 mb-1">Premium</h6>
+                            <h2 class="mb-0">Sponsor Packages</h2>
+                        </div>
+                        <div class="col text-right">
+                            <a href="{{ url('admin/sponsor/add') }}" class="btn btn-primary">
+                                Add Package
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:60px;">#</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Duration</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for package in packages %}
+                        <tr>
+                            <td>{{ package.id }}</td>
+                            <td>{{ package.title }}</td>
+                            <td>${{ package.price|number_format(2) }}</td>
+                            <td>{{ package.duration/60/60/24 }} Days</td>
+                            <td class="text-right">
+                                <a href="{{ url('admin/sponsor/edit/'~package.id) }}"
+                                    class="btn btn-link btn-sm py-0 text-white">
+                                    Edit
                                 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width:60px;">#</th>
-                                <th>Title</th>
-                                <th>Price</th>
-                                <th>Duration</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        {% for package in packages %}
-                            <tr>
-                                <td>{{ package.id }}</td>
-                                <td>{{ package.title }}</td>
-                                <td>${{ package.price|number_format(2) }}</td>
-                                <td>{{ package.duration/60/60/24 }} Days</td>
-                                <td class="text-right">
-                                    <a href="{{ url('admin/sponsor/edit/'~package.id) }}"
-                                        class="btn btn-link btn-sm py-0 text-white">
-                                        Edit
-                                    </a>
-                                    <a href="{{ url('admin/sponsor/delete/'~package.id) }}"
-                                        class="btn btn-link btn-sm py-0 text-danger">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-                <div class="card border-0 shadow-sm mb-3 overflow-hidden">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="text-uppercase text-muted ls-1 mb-1">Premium</h6>
-                                <h2 class="mb-0">Active Sponsors</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width:60px;">#</th>
-                                <th>Title</th>
-                                <th>Owner</th>
-                                <th>Time Left</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        {% for sponsor in sponsors %}
-                            <tr>
-                                <td>{{ sponsor.id }}</td>
-                                <td>{{ sponsor.title }}</td>
-                                <td>{{ sponsor.username}}#{{sponsor.discriminator }}</td>
-                                <td>{{ timeLeft(sponsor.expires) }}</td>
-                                <td class="text-right">
-                                    <a href="{{ url('admin/sponsor?revoke='~sponsor.id) }}"
-                                        class="btn btn-link btn-sm py-0 text-white">
-                                        Revoke
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-                {{ content|raw}}
-                
+                                <a href="{{ url('admin/sponsor/delete/'~package.id) }}"
+                                    class="btn btn-link btn-sm py-0 text-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div>
+
+            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-muted ls-1 mb-1">Premium</h6>
+                            <h2 class="mb-0">Active Sponsors</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:60px;">#</th>
+                            <th>Title</th>
+                            <th>Owner</th>
+                            <th>Time Left</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for sponsor in sponsors %}
+                        <tr>
+                            <td>{{ sponsor.id }}</td>
+                            <td>{{ sponsor.title }}</td>
+                            <td>{{ sponsor.username}}#{{sponsor.discriminator }}</td>
+                            <td>{{ timeLeft(sponsor.expires) }}</td>
+                            <td class="text-right">
+                                <a href="{{ url('admin/sponsor?revoke='~sponsor.id) }}"
+                                    class="btn btn-link btn-sm py-0 text-white">
+                                    Revoke
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            {{ content|raw}}
+            
         </div>
     </div>
 </div>

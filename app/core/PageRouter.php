@@ -104,7 +104,7 @@ class PageRouter extends Router {
             return $this->setRoute('ads', 'verify');
         });
 
-         /**
+        /**
          * Admin Sponsors
          */
         $this->all('admin/sponsor', function() {
@@ -121,6 +121,25 @@ class PageRouter extends Router {
         
         $this->all('admin/sponsor/delete/([0-9]+)', function($id) {
             return $this->setRoute('sponsor', 'delete', ['id' => $id]);
+        });
+
+        /**
+         * Admin Premium
+         */
+        $this->all('admin/premium', function() {
+            return $this->setRoute('premium', 'index');
+        });
+
+        $this->all('admin/premium/add', function() {
+            return $this->setRoute('premium', 'add');
+        });
+
+        $this->all('admin/premium/edit/([0-9]+)', function($id) {
+            return $this->setRoute('premium', 'edit', ['id' => $id]);
+        });
+        
+        $this->all('admin/premium/delete/([0-9]+)', function($id) {
+            return $this->setRoute('premium', 'delete', ['id' => $id]);
         });
         
         /**

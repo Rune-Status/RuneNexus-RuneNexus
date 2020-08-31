@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "payments" and action == 'index' ? "active" : "" }}"
+                    <a class="nav-link {{ controller == "payments" ? "active" : "" }}"
                        href="{{ url('admin/payments') }}">
                         <i class="fal fa-dollar-sign text-primary fa-fw mr-2"></i>
                         Payments
@@ -58,7 +58,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "sponsor" and action == 'index' ? "active" : "" }}"
+                    <a class="nav-link {{ controller == "sponsor" ? "active" : "" }}"
                        href="{{ url('admin/sponsor') }}">
                         <i class="fal fa-crown text-primary fa-fw mr-2"></i>
                         Sponsor Slots
@@ -66,8 +66,8 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "premium" and action == 'index' ? "active" : "" }}"
-                       href="{{ url('admin/sponsor') }}">
+                    <a class="nav-link {{ controller == "premium" ? "active" : "" }}"
+                       href="{{ url('admin/premium') }}">
                         <i class="fal fa-star text-primary fa-fw mr-2"></i>
                         Premium
                     </a>

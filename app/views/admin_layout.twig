@@ -20,6 +20,11 @@
 </head>
 <body>
 
+{% include 'admin/sidebar.twig' %}
+
+<div class="main-content" id="panel">
+    {% include "admin/header.twig" %}
+
     {% block content %}
     {% endblock %}
 </body>
