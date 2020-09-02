@@ -131,13 +131,13 @@ pre {
 }
 
 input.form-control {
-    background-color: #323232;
+    background-color: #2f3033;
     color:#AAA;
-    border-color: #323232;
+    border-color: #2f3033;
 }
 input.form-control:focus, input.form-control:active {
-    background-color: #373737;
-    border-color: #373737;
+    background-color: #2f3033;
+    border-color: #2f3033;
 }
 
 .table thead th {

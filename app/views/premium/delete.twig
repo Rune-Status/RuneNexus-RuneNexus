@@ -1,0 +1,50 @@
+{% extends 'admin_layout.twig' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+
+            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-muted ls-1 mb-1">Premium Package</h6>
+                            <h2 class="mb-0">{{ package.title }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                {% if errors is defined %}
+                <div class="alert alert-danger">
+                    <ul class="mb-0 pl-3">
+                        {% for key, value in errors %}
+                        <li>{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <form action="{{ url('admin/premium/delete/'~package.id) }}" method="post">
+                    <div class="card-body">
+                        <p class="mb-0">
+                            Are you sure you wish to delete this package? 
+                            Click below to confirm this action!
+                        </p>
+                    </div>
+
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-danger">Yes, Delete Pls</button>
+                        <a href="" class="btn btn-link text-muted">Nope, abort mission!</a>
+                    </div>
+                </form>
+                
+            </div>
+
+            {{ content|raw }}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
