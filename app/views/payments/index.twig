@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+                            <h6 class="text-uppercase text-muted ls-1 mb-0">Performance</h6>
                             <h2 class="mb-0">Payment History</h2>
                         </div>
                         <div class="col">
@@ -42,9 +42,9 @@
                     {% for payment in payments.items() %}
                     <tr>
                         <td>
-                            <span  data-toggle="tooltip" 
-                                    data-placement="right"
-                                    data-title="Discord ID: {{ payment.user_id }}">
+                            <span data-toggle="tooltip" 
+                                  data-placement="right"
+                                  data-title="Discord ID: {{ payment.user_id }}">
                                 {{ payment.username }}
                             </span>
                             <br>

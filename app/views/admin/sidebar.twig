@@ -42,30 +42,60 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "admin" and action == 'index' ? "active" : "" }}"
-                       href="{{ url('admin') }}">
-                        Dashboard
+                    {% set active = controller == "admin" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin') }}">
+
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 text-primary">
+                                {{ icon('bar-chart', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Dashboard
+                            </div>
+                        </div>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "payments" ? "active" : "" }}"
-                       href="{{ url('admin/payments') }}">
-                        Payments
+                    {% set active = controller == "payments" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin/payments') }}">
+
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 text-primary">
+                                {{ icon('shop', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Payments
+                            </div>
+                        </div>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "sponsor" ? "active" : "" }}"
-                       href="{{ url('admin/sponsor') }}">
-                        Sponsor Slots
+                    {% set active = controller == "sponsor" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin/sponsor') }}">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 text-primary">
+                                {{ icon('card-list', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Sponsor Slots
+                            </div>
+                        </div>
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link {{ controller == "premium" ? "active" : "" }}"
-                       href="{{ url('admin/premium') }}">
-                        Premium
+                    {% set active = controller == "premium" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin/premium') }}">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 text-primary">
+                                {{ icon('award', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Premium
+                            </div>
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -74,16 +104,30 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class=" nav-link" href="{{ url('') }}">
-                        <i class="fal fa-home text-primary fa-fw"></i>
-                        Home
+                    <a class="nav-link" href="{{ url('') }}">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 text-primary">
+                                {{ icon('house', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Home
+                            </div>
+                        </div>
                     </a>
                 </li>
                 
                 <li class="nav-item active">
-                    <a class="nav-link text-danger" href="{{ url('logout') }}">
-                        <i class="fal fa-sign-out text-danger fa-fw"></i>
-                        Sign Out</a>
+                    <a class="nav-link" href="{{ url('logout') }}">
+
+                        <div class="d-flex align-items-center text-danger">
+                            <div class="flex-fill pr-2">
+                                {{ icon('power', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Sign Out
+                            </div>
+                        </div>
+                    </a>
                 </li>
             </ul>
         </div>
