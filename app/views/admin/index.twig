@@ -5,15 +5,17 @@
         <!-- Card stats -->
         <div class="row">
 
-            
-
             <div class="col-sm-12 col-lg-4 col-xl-4">
                 <div class="card mb-4 shadow-sm overflow-hidden">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-success mb-0">Total Earned</h5>
-                                <span class="h2 font-weight-bold mb-0">${{ data['payments']['total']|number_format(2) }}</span>
+                                <h5 class="card-title text-uppercase text-success mb-0">
+                                    Total Earned
+                                </h5>
+                                <span class="h2 font-weight-bold mb-0">
+                                    ${{ data['payments']['total']|number_format(2) }}
+                                </span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape text-success rounded-circle">
@@ -36,8 +38,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-warning mb-0">Members</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ data['users']['total']|number_format }}</span>
+                                <h5 class="card-title text-uppercase text-warning mb-0">
+                                    Members
+                                </h5>
+                                <span class="h2 font-weight-bold mb-0">
+                                    {{ data['users']['total']|number_format }}
+                                </span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape text-warning rounded-circle">
@@ -61,12 +67,16 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-info mb-0">Servers Added</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ data['servers']['total']|number_format }}</span>
+                                <h5 class="card-title text-uppercase text-info mb-0">
+                                    Servers Added
+                                </h5>
+                                <span class="h2 font-weight-bold mb-0">
+                                    {{ data['servers']['total']|number_format }}
+                                </span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape text-info rounded-circle">
-                                    {{ icon('bar-chart', 32, 32) }}
+                                    {{ icon('list-nested', 38, 38) }}
                                 </div>
                             </div>
                         </div>
@@ -87,17 +97,19 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card border-0 shadow-sm mb-3">
+
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col w-100">
-                            <div class="float-left mt-1 mr-3 text-white">
-                                {{ icon('clipboard-data', 32, 32) }}
+                            <div class="float-left mt-1 mr-3 text-info">
+                                {{ icon('bar-chart-fill', 32, 32) }}
                             </div>
                             <h6 class="text-uppercase text-muted ls-1 mb-0">Performance</h6>
                             <h2 class="mb-0">Statistics during 2020</h2>
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body">
                     <div class="chart">
                         <canvas id="chart-orders" class="chart-canvas"></canvas>
@@ -138,8 +150,8 @@ $(document).ready(function() {
                 {
                     label: 'Votes',
                     data: {{ votes_data|json_encode|raw }},
-                    borderColor: window.chartColors.red,
-                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.blue,
+                    backgroundColor: window.chartColors.blue,
                     fill: false
                 }
             ]

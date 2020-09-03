@@ -3,21 +3,36 @@
 @font-face { font-family: "OpenSans-Light"; src: url('../fonts/OpenSans-Light.ttf'); }
 @font-face { font-family: "OpenSans-Regular"; src: url('../fonts/OpenSans-Regular.ttf'); }
 
+:root {
+    --body-bg: #232427;
+    --primary-font: #7c7c7c;
+    
+    --card-body: #292A2D; /* #292A2D */
+    --card-header: #292A2D;
+    --card-footer: #292A2D;
+
+    --sidebar-bg: #292A2D;
+
+    --sidebar-link: #CCC;
+    --sidebar-hover: #FFF;
+    --sidebar-active: #FFF;
+    --sidebar-active-bg: rgba(255,255,255,0.03);
+}
 
 body {
-    background-color: #232427;
-    color: #7c7c7c;
+    background-color: var(--body-bg);
+    color: var(--primary-font);
     font-family: "OpenSans-Regular" !important;
 }
 
 .navbar-vertical {
-    background-color:#292A2D !important;
+    background-color:var(--sidebar-bg) !important;
     box-shadow: 0 0 1.5rem rgba(0,0,0,.175) !important;
 }
 
 .navbar-vertical .navbar-nav .nav-link.active {
-    background-color: rgba(255,255,255,0.03) !important;
-    color:white;
+    background-color: var(--sidebar-active-bg) !important;
+    color:var(--sidebar-active);
 }
 
 @media (min-width: 768px) {
@@ -35,11 +50,11 @@ body {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: #CCC;
+    color: var(--sidebar-link);
 }
 
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
-    color: #FFF
+    color: var(--sidebar-hover);
 }
 
 .bg-default {
@@ -74,17 +89,16 @@ body {
 }
 
 .card {
-    background-color: #292A2D;
-}
-.card-header, .card-footer {
-    background-color: #292A2D;
+    background-color: var(--card-header);
 }
 .card-header {
-    border-bottom: solid 1px #292A2D;
+    background-color: var(--card-header);
+    border-bottom: solid 1px var(--card-header);
 }
 .card-footer {
+    background-color: var(--card-footer);
     background-color: #292A2D;
-    border-top: solid 1px #292A2D;
+    border-top: solid 1px var(--card-footer);
 }
 .shadow-sm {
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.175)!important;
@@ -108,8 +122,8 @@ pre {
 }
 
 .page-link, .page-item.disabled .page-link {
-    background-color: #252525;
-    border-color: #252525;
+    background-color: #292A2D;
+    border-color: #292A2D;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.175)!important;
 }
 
@@ -119,8 +133,8 @@ pre {
 
 .page-link:hover {
     color: #8898aa;
-    background-color: #292929;
-    border-color: #292929;
+    background-color: #2f3033;
+    border-color: #2f3033;
 }
 .page-item.active .page-link {
     z-index: 1;

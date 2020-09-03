@@ -65,6 +65,10 @@ class App {
             return;
         }
 
+        if (!$output) {
+            return true;
+        }
+
         $content = ob_get_contents();
         ob_end_clean();
         $this->controller->set("content", $content);

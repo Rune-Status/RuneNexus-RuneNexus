@@ -1,4 +1,7 @@
 {% block admin_sidebar %}
+
+{% set icon_class = "text-muted" %}
+
 <nav class="navbar navbar-main navbar-vertical fixed-left navbar-expand-md navbar-dark shadow-sm" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
@@ -46,7 +49,7 @@
                     <a class="nav-link {{ active }}" href="{{ url('admin') }}">
 
                         <div class="d-flex align-items-center">
-                            <div class="flex-fill pr-2 text-primary">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
                                 {{ icon('bar-chart', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">
@@ -56,12 +59,13 @@
                     </a>
                 </li>
 
+                
                 <li class="nav-item">
                     {% set active = controller == "payments" ? "active" : "" %}
                     <a class="nav-link {{ active }}" href="{{ url('admin/payments') }}">
 
                         <div class="d-flex align-items-center">
-                            <div class="flex-fill pr-2 text-primary">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
                                 {{ icon('shop', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">
@@ -72,10 +76,24 @@
                 </li>
 
                 <li class="nav-item">
+                    {% set active = controller == "users" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin/users') }}">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
+                                {{ icon('people', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Users
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     {% set active = controller == "sponsor" ? "active" : "" %}
                     <a class="nav-link {{ active }}" href="{{ url('admin/sponsor') }}">
                         <div class="d-flex align-items-center">
-                            <div class="flex-fill pr-2 text-primary">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
                                 {{ icon('card-list', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">
@@ -89,7 +107,7 @@
                     {% set active = controller == "premium" ? "active" : "" %}
                     <a class="nav-link {{ active }}" href="{{ url('admin/premium') }}">
                         <div class="d-flex align-items-center">
-                            <div class="flex-fill pr-2 text-primary">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
                                 {{ icon('award', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">
@@ -98,6 +116,8 @@
                         </div>
                     </a>
                 </li>
+
+            
             </ul>
 
             <hr class="my-3">
@@ -106,7 +126,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('') }}">
                         <div class="d-flex align-items-center">
-                            <div class="flex-fill pr-2 text-primary">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
                                 {{ icon('house', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">

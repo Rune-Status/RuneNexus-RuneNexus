@@ -141,6 +141,16 @@ class PageRouter extends Router {
         $this->all('admin/premium/delete/([0-9]+)', function($id) {
             return $this->setRoute('premium', 'delete', ['id' => $id]);
         });
+
+        /**
+         * Admin Users
+         */
+        $this->all('admin/users', function() {
+            return $this->setRoute('users', 'index');
+        });
+        $this->all('admin/users/([0-9]+)', function($page) {
+            return $this->setRoute('users', 'index', ['page' => $page]);
+        });
         
         /**
          * Report
