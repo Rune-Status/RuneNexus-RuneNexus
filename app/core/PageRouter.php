@@ -151,6 +151,12 @@ class PageRouter extends Router {
         $this->all('admin/users/([0-9]+)', function($page) {
             return $this->setRoute('users', 'index', ['page' => $page]);
         });
+        $this->all('admin/users/banned', function() {
+            return $this->setRoute('users', 'banned');
+        });
+        $this->all('admin/users/banned/([0-9]+)', function($page) {
+            return $this->setRoute('users', 'banned', ['page' => $page]);
+        });
         
         /**
          * Report

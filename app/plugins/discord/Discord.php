@@ -35,19 +35,11 @@ class Discord {
 
     public function get($type = "GET", $data = null) {
         $client = new GuzzleHttp\Client();
-
-        if ($this->is_bot) {
-            return json_decode($client->request($type, discord['api_url'].$this->endpoint, [
-                'headers' => [
-                    'Authorization' => 'Bot '.discord['bot_key'],
-                    'Content-Type'  => 'application/x-www-form-urlencoded'
-                ]
-            ])->getBody(), true);
-        }
+        $auth   = ($this->is_bot ? 'Bot '.discord['bot_key'] : 'Bearer '.$this->access_token);
 
         return json_decode($client->request($type, discord['api_url'].$this->endpoint, [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->access_token,
+                'Authorization' => $auth,
                 'Content-Type'  => 'application/x-www-form-urlencoded'
             ]
         ])->getBody(), true);
