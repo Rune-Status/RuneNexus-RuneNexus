@@ -1,10 +1,14 @@
 
 :root {
     /** Body */
+    --body-bg-color: #232427;
     --body-bg: url('../img/header.jpg') top center no-repeat #232427;
     --font-color: #7c7c7c;
     --header-bg: url('../img/header.jpg') top center no-repeat #3c4d69;
 
+    --admin-nav-bg: #292A2D;
+    --admin-shadow: 0 0 2rem 0 rgba(0,0,0,.15) !important;
+    --admin-header-bg: #5e72e4;
 
     /** Table Links */
     --link-color: #90caf9;
@@ -12,6 +16,9 @@
 
     --nav-link-color: #DDD;
     --nav-link-hover-color:#FFF;
+
+    /** headers */
+    --header-color: #FFF;
 
     /** buttons */
     --btn-bg: #90caf9;
@@ -35,6 +42,7 @@
     --card-bg: #292A2D;
     --card-header: #292A2D;
     --card-header-font: #FFF;
+    --card-shadow: 0 0 2rem 0 rgba(0,0,0,.15);
 
     /** Tables */
     --table-font: #AFAFAF;

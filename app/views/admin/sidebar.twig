@@ -2,7 +2,7 @@
 
 {% set icon_class = "text-primary" %}
 
-<nav class="navbar navbar-main navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidenav-main">
+<nav class="navbar navbar-main navbar-vertical fixed-left navbar-expand-md navbar-{{ theme }}" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" 
@@ -13,7 +13,7 @@
 
         <div class="navbar-brand text-default">
             {% include 'global/logo_svg.twig' %}
-            <p class="text-dark">Admin Dashboard</p>
+            <p class="text-{{ theme == "dark" ? "white" : "dark" }}">Admin Dashboard</p>
         </div>
         <!-- Brand -->
         

@@ -4,8 +4,17 @@
     <div class="container-fluid">
         <div class="header-body">
             <div class="row align-items-center py-4">
-                <div class="col-lg-6 col-7">
+                <div class="col">
                     <a href="#" class="text-white">Dashboard</a>
+                </div>
+                <div class="col text-right">
+                    <a class="text-white" href="#" rel="nofollow" id="darkmode">
+                        {% if theme == "dark" %}
+                        {{ icon("brightness-high", 18, 18) }}
+                        {% else %}
+                        {{ icon("brightness-alt-high", 18, 18) }}
+                        {% endif %}
+                    </a>
                 </div>
             </div>
         </div>

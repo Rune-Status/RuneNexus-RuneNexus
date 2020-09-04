@@ -1,17 +1,24 @@
 
 :root {
     /** Body */
+    --body-bg-color: #F8F8F8;
     --body-bg: url('../img/header.jpg') top center no-repeat #f3f3f3;
     --font-color: #7c7c7c;
     --header-bg: url('../img/header.jpg') top center no-repeat #3c4d69;
 
-    
+    --admin-nav-bg: #FFF;
+    --admin-shadow: 0 0 2rem 0 rgba(136,152,170,.15) !important;
+    --admin-header-bg: #172b4d;
+
     /** Table Links */
     --link-color: #3c4d69;
     --link-hover-color: #4b6185;
  
     --nav-link-color: #DDD;
     --nav-link-hover-color:#FFF;
+
+    /** headers */
+    --header-color: #32325d;
 
     /** buttons */
     --btn-bg: #3c4d69;
@@ -35,6 +42,7 @@
     --card-bg: #FFF;
     --card-header: transparent;
     --card-header-font: #000;
+    --card-shadow: 0 0 2rem 0 rgba(136,152,170,.15);
 
     /** Tables */
     --table-font: #3c4d69;
@@ -79,7 +87,7 @@
     --page-disabled: #272727;
     --page-disabled-font: #AAA;
 
-        /** Popover */
-        --popover-bg: #FFF;
-        --popover-font: #000;
+    /** Popover */
+    --popover-bg: #FFF;
+    --popover-font: #000;
 }
