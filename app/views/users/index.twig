@@ -44,9 +44,15 @@
                                 style="width:30px;height:30px;background-image:url({{ avatar(user.user_id, user.avatar) }}); background-size:100%;">
                             </div>
 
+                            {% set roles  = [''] %}
+
+                            {% if user.roles %}
+                            {% set roles = user.roles|json_decode %}
+                            {% endif %}
+
                             <a href="https://discord.com/users/{{ user.user_id }}" 
                                 class="text-primary" 
-                                target="_blank">
+                                target="_blank" data-toggle="tooltip" data-placement="right" data-title="{{ roles|implode(', ') }}">
                                 {{ user.username }}#{{ user.discriminator }}
                             </a>
                             
@@ -57,17 +63,6 @@
                             {% if user.join_date %}
                             {{ user.join_date|date("m.d.y") }}
                             {% endif %}
-                        </td>
-                        <td>
-                            {% set roles  = [''] %}
-
-                            {% if user.roles %}
-                            {% set roles = user.roles|json_decode %}
-                            {% endif %}
-
-                            <span data-toggle="tooltip" data-title="{{ roles|implode(', ') }}">
-                                [ Show Roles ]
-                            </span>
                         </td>
                         <td class="text-right">
                             <a href="{{ url('admin/users/?ban='~user.user_id) }}" class="btn btn-primary btn-sm">

@@ -11,11 +11,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <div class="navbar-brand text-primary">
+            {% include 'global/logo_svg.twig' %}
+            <p class="text-white">Admin Dashboard</p>
+        </div>
         <!-- Brand -->
-        <a class="navbar-brand pt-0 text-white-50" href="{{ url('admin') }}">
-           {% include 'global/logo_svg.twig' %}
-        </a>
-
+        
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
@@ -53,7 +54,7 @@
                                 {{ icon('bar-chart', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">
-                                Dashboard
+                                Home
                             </div>
                         </div>
                     </a>
