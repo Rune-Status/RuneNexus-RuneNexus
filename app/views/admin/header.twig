@@ -5,7 +5,17 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col">
-                    <a href="#" class="text-white">Dashboard</a>
+                    <div class="d-flex">
+                        <div class="flex-fill text-white pr-2">
+                            {{ icon('person-circle', 16, 16) }}
+                        </div>
+                        <div class="flex-fill w-100">
+                            <a href="#" class="text-white d-inline-block" style="margin-top: 2px;">
+                                {{ user.username }}
+                            </a>
+                            <small class="text-muted">#{{ user.discriminator }}</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="col text-right">
                     <a class="text-white" href="#" rel="nofollow" id="darkmode">
