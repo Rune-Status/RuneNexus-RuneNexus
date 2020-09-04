@@ -11,7 +11,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-brand text-default">
+        <div class="navbar-brand text-default d-none d-md-block">
             {% include 'global/logo_svg.twig' %}
             <p class="text-{{ theme == "dark" ? "white" : "dark" }}">Admin Dashboard</p>
         </div>
@@ -20,7 +20,7 @@
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
-                <i class="fas fa-user-circle"></i> {{ user.getName() }}
+                Admin Dashboard
             </li>
         </ul>
         
@@ -90,44 +90,20 @@
                     </a>
                 </li>
 
-                {#
                 <li class="nav-item">
-                    {% set isActive = controller == "users" %}
-                    {% set show     = isActive ? "show" : "" %}
-                    {% set expand   = isActive ? "true" : "false" %}
+                    {% set active = controller == "admin" and action == "reports" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin/reports') }}">
 
-                    <a class="nav-link" href="#users" data-toggle="collapse" role="button" aria-expanded="{{ expand }}" aria-controls="users">
                         <div class="d-flex align-items-center">
                             <div class="flex-fill pr-2 {{ icon_class }}">
-                                {{ icon('people', 16, 16) }}
+                                {{ icon('exclamation-triangle', 16, 16) }}
                             </div>
                             <div class="flex-fill w-100">
-                                Users
+                                Reports
                             </div>
                         </div>
                     </a>
-
-                    <div class="collapse {{ show }}" id="users">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                {% set active = isActive and action == "index" ? "active" : "" %}
-
-                                <a href="{{ url('admin/users') }}" class="nav-link {{ active }}">
-                                   Members
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                {% set active = isActive and action == "banned" ? "active" : "" %}
-
-                                <a href="{{ url('admin/users/banned') }}" class="nav-link {{ active }}">
-                                    Ban List
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
-                #}
 
                 <li class="nav-item">
                     {% set active = controller == "sponsor" ? "active" : "" %}
@@ -156,6 +132,7 @@
                         </div>
                     </a>
                 </li>
+
 
             
             </ul>

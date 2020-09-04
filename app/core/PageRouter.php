@@ -159,6 +159,19 @@ class PageRouter extends Router {
         });
         
         /**
+         * Admin Reports
+         */
+        $this->all('admin/reports', function() {
+            return $this->setRoute('admin', 'reports');
+        });
+        $this->all('admin/reports/([0-9]+)', function($page) {
+            return $this->setRoute('admin', 'reports', ['page' => $page]);
+        });
+        $this->all('admin/reports/view/([0-9]+)', function($id) {
+            return $this->setRoute('admin', 'viewreport', ['id' => $id]);
+        });
+
+        /**
          * Report
          */
         $this->all('report/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {

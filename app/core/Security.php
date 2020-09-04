@@ -33,7 +33,7 @@ class Security {
         ];
 
         $admin = [
-            'admin'    => ['index'],
+            'admin'    => ['index', 'reports', 'viewreport'],
             'payments' => ['index'],
             'sponsor'  => ['index', 'add', 'edit', 'delete'],
             'premium'  => ['index', 'add', 'edit', 'delete'],
