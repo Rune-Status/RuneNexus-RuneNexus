@@ -1,10 +1,10 @@
 {% extends 'admin_layout.twig' %}
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col-xl-12">
 
-            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+            <div class="card border-0 mb-3 overflow-hidden">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -36,7 +36,7 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-danger">Yes, Delete Pls</button>
-                        <a href="" class="btn btn-link text-muted">Nope, abort mission!</a>
+                        <a href="{{ url('admin/premium') }}" class="btn btn-link text-muted">Nope, abort mission!</a>
                     </div>
                 </form>
                 

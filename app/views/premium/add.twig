@@ -1,10 +1,10 @@
 {% extends 'admin_layout.twig' %}
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col-xl-12">
 
-            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+            <div class="card border-0 mb-3 overflow-hidden">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -40,7 +40,7 @@
                             <input type="text" class="form-control" name="duration">
                             <small>Value in seconds. 86400 = 1 day.</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-0">
                             <label for="duration">Level</label>
                             <input type="number" class="form-control" name="level">
                             <small>Integer value. Level * 100 = votes for the month</small>
@@ -50,8 +50,8 @@
                     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                        <a href="" class="btn btn-link text-primary">Cancel</a>
+                        <button type="submit" class="btn btn-default">Save Changes</button>
+                        <a href="" class="btn btn-link text-default">Cancel</a>
                     </div>
                 </form>
                 

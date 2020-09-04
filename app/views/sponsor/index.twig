@@ -1,11 +1,11 @@
 {% extends 'admin_layout.twig' %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col-xl-12">
 
-            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+            <div class="card border-0 mb-3 overflow-hidden">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -13,7 +13,7 @@
                             <h2 class="mb-0">Sponsor Packages</h2>
                         </div>
                         <div class="col text-right">
-                            <a href="{{ url('admin/sponsor/add') }}" class="btn btn-primary">
+                            <a href="{{ url('admin/sponsor/add') }}" class="btn btn-default">
                                 Add Package
                             </a>
                         </div>
@@ -37,7 +37,7 @@
                             <td>{{ package.duration/60/60/24 }} Days</td>
                             <td class="text-right">
                                 <a href="{{ url('admin/sponsor/edit/'~package.id) }}"
-                                    class="btn btn-link btn-sm py-0 text-white">
+                                    class="btn btn-link btn-sm py-0 text-default">
                                     Edit
                                 </a>
                                 <a href="{{ url('admin/sponsor/delete/'~package.id) }}"
@@ -50,7 +50,7 @@
                 </table>
             </div>
 
-            <div class="card border-0 shadow-sm mb-3 overflow-hidden">
+            <div class="card border-0 mb-3 overflow-hidden">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -77,7 +77,7 @@
                             <td>{{ timeLeft(sponsor.expires) }}</td>
                             <td class="text-right">
                                 <a href="{{ url('admin/sponsor?revoke='~sponsor.id) }}"
-                                    class="btn btn-link btn-sm py-0 text-white">
+                                    class="btn btn-link btn-sm py-0 text-default">
                                     Revoke
                                 </a>
                             </td>
