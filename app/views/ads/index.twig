@@ -63,15 +63,12 @@
                                         </span>
                                         
                                         <ul class="list-unstyled my-4">
-                                            {% for feature in features %}
                                             <li class="align-items-center">
-                                                {% if feature is null %}
-                                                <i class="fal fa-times text-danger"></i>
-                                                {% else %}
-                                                {{ feature|raw }}
-                                                {% endif %}
+                                                <span class="text-default">+{{ package.level * 100 }}</span> Instant Votes
                                             </li>
-                                            {% endfor %}
+                                            <li class="align-items-center">
+                                                <span class="text-default">Highlighted</span> Background
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="card-footer bg-transparent">

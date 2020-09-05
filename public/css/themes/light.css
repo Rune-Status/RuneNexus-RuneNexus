@@ -1,8 +1,8 @@
 
 :root {
     /** Body */
-    --body-bg-color: #F8F8F8;
-    --body-bg: url('../img/header.jpg') top center no-repeat #f3f3f3;
+    --body-bg-color: #e9ecef;
+    --body-bg: url('../img/header.jpg') top center no-repeat #e9ecef;
     --font-color: #7c7c7c;
     --header-bg: url('../img/header.jpg') top center no-repeat #3c4d69;
 
@@ -75,8 +75,6 @@
     --form-focus-border: rgba(50,151,211,.25);
     --form-focus-font: #8898aa;
 
-    --footer-bg: #1f1f22;
-    --footer-font: #AAA;
 
     --page-link: #FFF;
     --page-link-font: #3c4d69;
