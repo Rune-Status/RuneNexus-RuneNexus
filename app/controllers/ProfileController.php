@@ -12,8 +12,8 @@ class ProfileController extends Controller {
         $votes = Votes::
             select("*")
             ->whereRaw("server_id IN (".$ids.")")
-            ->orderBy("votes.voted_on", "DESC")
             ->leftJoin("servers", "servers.id", "=", "votes.server_id")
+            ->orderByRaw("votes.voted_on DESC")
             ->get();
 
         $votesArr = [];
