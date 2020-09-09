@@ -155,6 +155,7 @@ a:not(.nav-link):not(.dropdown-item):not(.page-link):not(.btn) {
 
 .card-header {
     color: var(--card-header-font) !important;
+    background-color: var(--card-header) !important;
 }
 .modal-content {
     background-color: var(--card-bg) !important;
@@ -322,4 +323,36 @@ input.form-control {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: .5rem;
+}
+
+.btn-gold {
+    background-color: #ffab25;
+    font-weight: bold;
+    color: #FFF !important;
+}
+.btn-gold:hover, .btn-gold:active, .btn-gold:focus {
+    background-color: #ffab25;
+    color: #FFF !important;
+}
+.btn-outline-gold {
+    border: solid 2px #ffab25;
+    font-weight: bold;
+    color: #ffab25;
+}
+.btn-outline-gold:hover, .btn-outline-gold:active, .btn-outline-gold:focus {
+    background-color: #ffab25;
+    color: #FFF !important;
+}
+.pulse {
+    animation: pulse-premium 2s infinite;
+}
+
+@keyframes pulse-premium
+{
+    0% {
+        box-shadow: 0 0 0 0px #ffab25;
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(55, 213,242, 0);;
+    }
 }

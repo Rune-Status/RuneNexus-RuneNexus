@@ -131,6 +131,12 @@
                                     </a>
                                     <a class="dropdown-item" rel="nofollow"
                                         id="days"
+                                        data-days="60"
+                                        href="#">
+                                        60 Days
+                                    </a>
+                                    <a class="dropdown-item" rel="nofollow"
+                                        id="days"
                                         data-days="30"
                                         href="#">
                                         30 Days
@@ -239,10 +245,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 {
                     label: 'Votes',
                     borderColor: window.chartColors.blue,
-                    backgroundColor:  window.chartColors.blue,
+                    backgroundColor:  window.chartColors.blueLight,
                     hoverBackgroundColor: window.chartColors.blue,
                     barWidth: 2,
-                    fill: false
+                    fill: true
                 }
             ]
         },
@@ -250,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
 
     let chart = new Chart(context, cdata);
-    let days = 90;
+    let days = 60;
     let loader = $('#loader');
     let loader_txt = loader.html();
     let loading = false;

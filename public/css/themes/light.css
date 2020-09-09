@@ -11,8 +11,8 @@
     --admin-header-bg: #172b4d;
 
     /** Table Links */
-    --link-color: #3c4d69;
-    --link-hover-color: #4b6185;
+    --link-color: #3282b8;
+    --link-hover-color: #3996d4;
  
     --nav-link-color: #DDD;
     --nav-link-hover-color:#FFF;
@@ -21,27 +21,27 @@
     --header-color: #32325d;
 
     /** buttons */
-    --btn-bg: #3c4d69;
-    --btn-border:#3c4d69;
+    --btn-bg: #3282b8;
+    --btn-border:#3282b8;
     --btn-font:#fff;
 
-    --btn-hover-bg: #4b6185;
-    --btn-hover-border: #4b6185;
+    --btn-hover-bg: #3996d4;
+    --btn-hover-border: #3996d4;
     --btn-hover-font: #FFF;
 
     /** outline buttons */
-    --btn-outline-bg: #3c4d69;
-    --btn-outline-border:#3c4d69;
-    --btn-outline-font:#3c4d69;
+    --btn-outline-bg: #3282b8;
+    --btn-outline-border:#3282b8;
+    --btn-outline-font:#3282b8;
 
-    --btn-outline-hover-bg: #4b6185;
-    --btn-outline-hover-border: #4b6185;
+    --btn-outline-hover-bg: #3282b8;
+    --btn-outline-hover-border: #3282b8;
     --btn-outline-hover-font: #FFF;
 
     /** Cards */
     --card-bg: #FFF;
-    --card-header: transparent;
-    --card-header-font: #FFF;
+    --card-header: #FFF;
+    --card-header-font: #000;
     --card-shadow: 0 0 2rem 0 rgba(136,152,170,.15);
 
     /** Tables */
@@ -53,7 +53,7 @@
     /** Misc Fonts */
     --muted-color: #777;
     --h-color:#000;
-    --default-color: #90caf9; 
+    --default-color: #3282b8; 
 
     /** Badges */
     --badge-primary-bg: rgba(0, 250, 250, 0.05);
@@ -80,9 +80,9 @@
 
     --page-link: #FFF;
     --page-link-font: #3c4d69;
-    --page-hover: #3c4d69;
+    --page-hover: #3282b8;
     --page-hover-font: #FFF;
-    --page-active: #3c4d69;
+    --page-active: #3282b8;
     --page-active-font: #FFF;
     --page-disabled: #272727;
     --page-disabled-font: #AAA;

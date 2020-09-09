@@ -150,7 +150,6 @@
                                     <p class="mb-0 text-default">{{ voteData[server.id]['30days']|number_format }}</p>
                                     <p class="small text-muted">30 Days</p>
                                 </div>
-
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">{{ voteData[server.id]['7days']|number_format }}</p>
                                     <p class="small text-muted">7 Days</p>
@@ -163,6 +162,10 @@
                         </div>
                     </div>
                 </div>
+            {% else %}
+            <div class="alert alert-default shadow-sm">
+                You dont have a server listed yet! Click the button above to add one now!
+            </div>
             {% endfor %}
         </div>
     </div>
