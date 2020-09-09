@@ -41,7 +41,7 @@
     /** Cards */
     --card-bg: #FFF;
     --card-header: transparent;
-    --card-header-font: #000;
+    --card-header-font: #FFF;
     --card-shadow: 0 0 2rem 0 rgba(136,152,170,.15);
 
     /** Tables */

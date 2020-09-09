@@ -154,7 +154,6 @@ a:not(.nav-link):not(.dropdown-item):not(.page-link):not(.btn) {
 }
 
 .card-header {
-    background: var(--card-header) !important;
     color: var(--card-header-font) !important;
 }
 .modal-content {
@@ -317,4 +316,10 @@ input.form-control {
   /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: var(--btn-hover-bg);
+}
+
+.card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: .5rem;
 }

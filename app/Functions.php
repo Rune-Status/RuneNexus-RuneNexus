@@ -89,11 +89,16 @@ class Functions {
         }
     }
 
-    public static function getTimeLeft($expires) {
+    public static function getTimeLeft($expires, $short = false) {
         $now = new DateTime();
         $future_date = new DateTime(date("Y-m-d g:i:s", $expires));
         $interval = $future_date->diff($now);
-        $timeFormat = $interval->format("%a days, %h hrs, %i mins, %s secs");
+
+        if ($short) {
+            $timeFormat = $interval->format("%ad %hh %im");
+        } else {
+            $timeFormat = $interval->format("%a days, %h hrs, %i mins, %s secs");
+        }
         return $timeFormat;
     }
 
@@ -138,8 +143,7 @@ class Functions {
         }
       
         return $formattedTimeRemaining;
-      
-      }
+    }
 
     public static function getLastNDays($days, $format = 'n j'){
         $m  = date("m");
