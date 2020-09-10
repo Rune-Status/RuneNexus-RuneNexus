@@ -49,7 +49,7 @@
     --table-header-bg: #2f3033;
     --row-border-color: #323232;
     
-    --row-premium: rgba(144, 202, 249, 0.18);
+    --row-premium: rgba(50, 130, 184, 0.3);
 
     /** Misc Fonts */
     --muted-color: #777;
@@ -90,4 +90,8 @@
     /** Popover */
     --popover-bg: #2e2f31;
     --popover-font: #DDD;
+}
+
+.table tr.bg-premium {
+    box-shadow: inset 0 0 35px rgba(50, 130, 184, 0.5);
 }
