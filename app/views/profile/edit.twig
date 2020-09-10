@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 contentType: false,
                 type: 'POST',
                 data: formData,
-                url: "{{ url('servers/upload') }}",
+                url: "{{ url('upload') }}",
                 mimeType: 'multipart/form-data',
                 xhr: function () {
                     var myXhr = $.ajaxSettings.xhr();

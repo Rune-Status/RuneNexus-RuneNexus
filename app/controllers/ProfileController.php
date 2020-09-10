@@ -130,7 +130,6 @@ class ProfileController extends Controller {
             }
         }
 
-        $this->set("page_title", "Add Server");
         $revisions = Revisions::where('visible', 1)->get();
         $this->set("revisions", $revisions);
     	return true;
@@ -218,7 +217,6 @@ class ProfileController extends Controller {
 
         $this->set("revisions", $revisions);
         $this->set("server", $server);
-        $this->set("page_title", "Edit Server");
 
         $this->set("seo_link", Functions::friendlyTitle($server->id.'-'.$server->title));
         if ($server->meta_tags)

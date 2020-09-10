@@ -102,7 +102,9 @@ class Controller {
         $http_host = $_SERVER['HTTP_HOST'];
         $sub_dom   = explode('.', $http_host); 
         $is_mobile = array_shift($sub_dom) == "mobile";
-        $meta = $this->getPageMeta($controller, $action);
+
+        $pm   = new PageMeta($controller, $action);
+        $meta = $pm->getMeta();
 
         $this->set("page_title", $meta['title']);
         $this->set("meta_info", $meta['meta']);
@@ -114,64 +116,6 @@ class Controller {
         $this->set("request_ip", $this->request->getAddress());
         return true;
     }
-
-    public function getPageMeta($controller, $action) {
-        $pages = [
-            'premium' => [
-                'index' => [
-                    'title' => 'Premium',
-                    'meta'  => 'Buy premium on RuneNexus to give your server a nice boost, which will increase traffic and visibility for your server!'
-                ]
-            ],
-            'pages' => [
-                'docs' => [
-                    'title' => 'Documentation',
-                    'meta'  => 'Integrate your website with our service, receive voting callback, and more!'
-                ],
-                'updates' => [
-                    'title' => 'Update Log',
-                    'meta'  => 'All updates that have been pushed for the toplist, and a list of contributors.'
-                ],
-                'stats' => [
-                    'title' => 'Stats',
-                    'meta'  => 'Global statistics showing votes, user, and server counts.'
-                ],
-                'terms' => [
-                    'title' => 'Terms of Service',
-                    'meta'  => 'Our terms of service.'
-                ],
-                'privacy' => [
-                    'title' => 'Privacy Policy',
-                    'meta'  => 'Our privacy policy.'
-                ]
-            ],
-            'sponsor' => [
-                'index' => [
-                    'title' => 'Sponsored Ads',
-                    'meta' => 'Sponsored ad spots that place you above all other on every page of the main listing.'
-                ]
-            ],
-            'tools' => [
-                'itemdb' => [
-                    'title' => 'Osrs Item DB',
-                    'meta' => 'An easy to use oldschool runescape item db that\'s always up to date.'
-                ]
-            ]
-        ];
-
-        if (in_array($controller, array_keys($pages))) {
-            $actions = $pages[$controller];
-            if (in_array($action, array_keys($actions))) {
-                return $pages[$controller][$action];
-            }
-        }
-
-        return [
-            'title' => 'Servers',
-            'meta'  => 'The most modern runescape private server toplist built to-date. Come join your favorite RSPS, or add your server today to start advertising with us!'
-        ];
-    }
-
 
     /**
      * Displays the necessary template using Twig

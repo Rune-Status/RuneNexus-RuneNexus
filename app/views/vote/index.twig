@@ -51,10 +51,10 @@
                     {% set disabled = vote is null ? '' : 'disabled' %}
 
                     <div class="mb-4">
-                        <a href="" class="btn btn-primary vote" data-id="{{ server.id }}">
+                        <a href="" class="btn btn-default vote" data-id="{{ server.id }}">
                             Vote Now
                         </a>
-                        <a href="{{ url('details/'~server_url) }}" class="btn btn-outline-primary">
+                        <a href="{{ url('details/'~server_url) }}" class="btn btn-outline-default">
                             View Server
                         </a>
                     </div>

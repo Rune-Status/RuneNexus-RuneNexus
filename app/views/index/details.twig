@@ -17,7 +17,7 @@
                         </div>
                         <div class="col text-lg-right">
                             {% if user is defined and user.user_id == server.owner %}
-                                <a href="{{ url('servers/edit/'~seo_link) }}" 
+                                <a href="{{ url('profile/edit/'~seo_link) }}" 
                                     class="btn btn-default">Edit Server</a>
                             {% endif %}
                         </div>
@@ -31,7 +31,7 @@
 
                         <div class="d-flex ">
                             <div class="flex-fill pr-1">
-                                <a href="{{ url('servers/out/'~friendlyTitle(server.id~'-'~server.title)) }}"
+                                <a href="{{ url('out/'~friendlyTitle(server.id~'-'~server.title)) }}"
                                     target="_blank"
                                     class="btn btn-default btn-block mb-3 {{ server.website ? '' : 'disabled' }}" target="_blank">
                                     {{ icon('link-45deg', 20, 20) }}
