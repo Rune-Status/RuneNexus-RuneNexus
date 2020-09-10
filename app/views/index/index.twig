@@ -11,19 +11,18 @@
 
             {% include 'index/sponsors.twig' %}
 
+            {% if servers.currentPage() == 1 %}
             <div class="card border-0 shadow-sm mb-3">
-                
                 <div class="card-body text-center">
                     <a href="https://runead.com" target="_blank">
                         <img src="{{ url('public/img/brands/RuneAD500.gif') }}" class="img-fluid mb-2">
                     </a>
-                    
                     <p class="mb-0 small text-muted">
                         Looking for more servers? Check out our sister website!
                     </p>
                 </div>
-                
             </div>
+            {% endif %}
 
             {% include 'index/listing.twig' %}
         </div>
