@@ -91,7 +91,3 @@
     --popover-bg: #2e2f31;
     --popover-font: #DDD;
 }
-
-.table tr.bg-premium {
-    box-shadow: inset 0 0 35px rgba(50, 130, 184, 0.5);
-}
