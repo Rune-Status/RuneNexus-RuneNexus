@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 action: 'homepage'
             }).then(function(token) {
                 $.ajaxq('VoteQueue', {
-                    url: '{{ url("servers/addvote") }}',
+                    url: '{{ url("vote/add") }}',
                     data: {
                         server_id: id,
                         token: token

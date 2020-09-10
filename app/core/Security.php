@@ -27,9 +27,8 @@ class Security {
         ];
 
         $private = [
-            'servers' => ['add', 'edit', 'delete'],
             'ads'     => ['index', 'button', 'verify', 'process'],
-            'profile' => ['index', 'stats'],
+            'profile' => ['index', 'stats', 'add', 'edit', 'delete', 'upload', 'payments'],
         ];
 
         $admin = [

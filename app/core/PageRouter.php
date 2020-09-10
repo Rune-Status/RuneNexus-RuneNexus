@@ -25,27 +25,14 @@ class PageRouter extends Router {
             return $this->setRoute('index', 'index');
         });
 
-        $this->all('servers/add', function() {
-            return $this->setRoute('servers', 'add');
-        });
-
-        $this->post('servers/upload', function() {
-            return $this->setRoute('servers', 'upload');
-        });
-        
-        $this->all('servers/edit/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
-            return $this->setRoute('servers', 'edit', ['id' => $id]);
-        });
-
-        $this->all('servers/delete/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
-            return $this->setRoute('servers', 'delete', ['id' => $id]);
-        });
-
-        $this->all('servers/out/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
+        $this->all('out/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
             return $this->setRoute('index', 'out', ['id' => $id]);
         });
 
-        $this->post('servers/addvote', function() {
+        /**
+         * Voting
+         */
+        $this->post('vote/add', function() {
             return $this->setRoute('vote', 'addvote');
         });
 
@@ -244,6 +231,34 @@ class PageRouter extends Router {
 
         $this->get("profile/stats", function() {
             return $this->setRoute('profile', 'stats');
+        });
+
+        $this->get("profile/payments", function() {
+            return $this->setRoute('profile', 'payments');
+        });
+
+        $this->get("profile/payments/([0-9]+)", function($page = 1) {
+            return $this->setRoute('profile', 'payments', [ 'page' => $page ]);
+        });
+
+
+        /**
+         * Server Management
+         */
+        $this->all('profile/add', function() {
+            return $this->setRoute('profile', 'add');
+        });
+        
+        $this->all('profile/edit/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
+            return $this->setRoute('profile', 'edit', ['id' => $id]);
+        });
+
+        $this->all('profile/delete/([0-9]+)-([A-Za-z0-9\-]+)', function($id, $title) {
+            return $this->setRoute('profile', 'delete', ['id' => $id]);
+        });
+
+        $this->post('upload', function() {
+            return $this->setRoute('profile', 'upload');
         });
 
         /**

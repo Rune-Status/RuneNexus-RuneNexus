@@ -10,8 +10,8 @@
 
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-header bg-default">
-                    <h5 class="mb-0 text-white">Edit Server: {{ server.title }}</h5>
-                    <p class="mb-0 text-white-50">Use the form below to create a listing for your server on our toplist!</p>
+                    <h5 class="mb-0">Edit Server: {{ server.title }}</h5>
+                    <p class="mb-0 text-muted small">Use the form below to create a listing for your server on our toplist!</p>
                 </div>
                 <div class="card-body">
                     {% if errors is defined %}
@@ -30,7 +30,7 @@
                         {{ success}}
                     </div>
                     {% endif %}
-                    <form method="post" action="{{ url('servers/edit/'~seo_link) }}" id="postform">
+                    <form method="post" action="{{ url('profile/edit/'~seo_link) }}" id="postform">
                         <div class="form-row form-group">
                             <div class="col-lg-2">
                                 <label>Revision</label>

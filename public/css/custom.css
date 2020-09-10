@@ -80,9 +80,6 @@ a:not(.nav-link):not(.dropdown-item):not(.page-link):not(.btn) {
 .table thead th {
     border-bottom: none !important;
 }
-.table thead tr {
-    background-color: var(--table-header-bg) !important;
-}
 
 .table tr.bg-premium {
     background-color: var(--row-premium) !important;
@@ -355,4 +352,16 @@ input.form-control {
     100% {
         box-shadow: 0 0 0 10px rgba(55, 213,242, 0);;
     }
+}
+
+a.list-group-item {
+    background-color: transparent;
+    border: none;
+}
+
+a.list-group-item.active {
+    z-index: 2;
+    color: #fff !important;
+    border-color: var(--btn-bg);
+    background-color: var(--btn-bg);
 }

@@ -3,35 +3,13 @@
 {% block content %}
 
 <div class="container" style="margin-top:-30px;">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card border-0 shadow-sm mb-3">
-                <div class="card-body" style="line-height:.8em;">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-fill pr-3">
-                            <img src="{{ avatar(user.user_id, user.avatar) }}" 
-                            class="rounded-circle mr-3"
-                            height="60">
-                        </div>
-                        <div class="flex-fill w-100">
-                            <small class="text-muted">Profile</small>
-                            <h5 class="mb-0">
-                                {{ user.username }} #{{ user.discriminator }}
-                            </h5>
-                        </div>
-                        <div class="flex-fill w-100 text-right">
-                            <a href="{{ url('servers/add') }}" class="btn btn-default btn-lg">Add Server</a>
-                            <a href="{{ url('ads') }}" class="btn btn-success btn-lg">Go Premium</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'profile/components/header.twig' %}
 
     <div class="row mb-3">
         <div class="col-sm-12 col-lg-4">
-            
+
+            {% include 'profile/components/sidebar_nav.twig' %}
+
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-body">
                     <p class="text-muted small mb-0">Servers</p>
@@ -81,10 +59,10 @@
                                 <a href="#" id="showdetails" class="px-2">
                                     {{ icon('info-circle')}}
                                 </a>
-                                <a href="{{ url('servers/edit/'~seo) }}" class="px-2">
+                                <a href="{{ url('profile/edit/'~seo) }}" class="px-2">
                                     {{ icon('pencil')}}
                                 </a>
-                                <a href="{{ url('servers/delete/'~seo) }}" class="px-2">
+                                <a href="{{ url('profile/delete/'~seo) }}" class="px-2">
                                     {{ icon('trash')}}
                                 </a>
                             </div>
@@ -95,25 +73,29 @@
                         <div id="details" class="text-center">
                             <div class="d-flex">
                                 <div class="flex-fill w-100">
-                                    <p class="mb-0 text-default">
+                                    <p class="mb-0 text-{{ server.ping > -1 ? "success" : "danger" }}">
                                         {{ server.ping > -1 ? 'Online' : 'Offline' }}
                                     </p>
-                                    <p class="small">
+                                    <p class="small mb-0">
                                         Status
                                     </p>
                                 </div>
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">
                                         {% if server.premium_expires > time() %}
-                                            {{ timeLeft(server.premium_expires, true)}}
+                                            <span class="text-success">
+                                                {{ timeLeft(server.premium_expires, true)}}
+                                            </span>
                                         {% elseif server.premium_expires < time() and server.premium_expires != -1 %}
-                                            Expired
+                                            <span class="text-danger">
+                                                Expired
+                                            </span>
                                         {% else %}
                                             n/a
                                         {% endif %}
                                         </p>
     
-                                        <p class="small">
+                                        <p class="small mb-0">
                                             Premium Exp.
                                         </p>
                                 </div>
@@ -121,7 +103,7 @@
                                     <p class="mb-0 text-default">
                                         {{ server.date_created|date("m.d.y") }}
                                     </p>
-                                    <p class="small">
+                                    <p class="small mb-0">
                                         Created
                                     </p>
                                 </div>
@@ -129,7 +111,7 @@
                                     <p class="mb-0 text-default">
                                         {{ server.revision ? server.revision : 'n/a'}}
                                     </p>
-                                    <p class="small">
+                                    <p class="small mb-0">
                                         Revision
                                     </p>
                                 </div>
@@ -140,23 +122,23 @@
                             <div class="d-flex">
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">{{ server.votes|number_format }}</p>
-                                    <p class="small text-muted">Current</p>
+                                    <p class="small text-muted mb-0">Current</p>
                                 </div>
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">{{ voteData[server.id]['60days']|number_format }}</p>
-                                    <p class="small text-muted">60 Days</p>
+                                    <p class="small text-muted mb-0">60 Days</p>
                                 </div>
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">{{ voteData[server.id]['30days']|number_format }}</p>
-                                    <p class="small text-muted">30 Days</p>
+                                    <p class="small text-muted mb-0">30 Days</p>
                                 </div>
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">{{ voteData[server.id]['7days']|number_format }}</p>
-                                    <p class="small text-muted">7 Days</p>
+                                    <p class="small text-muted mb-0">7 Days</p>
                                 </div>
                                 <div class="flex-fill w-100">
                                     <p class="mb-0 text-default">{{ voteData[server.id]['1day']|number_format }}</p>
-                                    <p class="small text-muted">1 Day</p>
+                                    <p class="small text-muted mb-0">1 Day</p>
                                 </div>
                             </div>
                         </div>

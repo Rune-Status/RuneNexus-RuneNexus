@@ -10,13 +10,19 @@
 
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-header">
-                    <h5 class="mb-0">Create Listing</h5>
-                    <p class="mb-0">Use the form below to create a listing for your server on our toplist!</p>
+                    <h5 class="mb-0">
+                        Create Listing
+                    </h5>
+                    <p class="mb-0 small text-muted">
+                        Use the form below to create a listing for your server on our toplist!
+                    </p>
                 </div>
                 <div class="card-body">
                     {% if errors is defined %}
                         <div class="alert alert-danger">
-                            <p class="mb-2">Errors were encountered when posting you server:</p>
+                            <p class="mb-2">
+                                Errors were encountered when posting you server:
+                            </p>
                             <ul class="mb-0 pl-3">
                                 {% for key, value in errors %}
                                 <li>&bull; {{ value }}</li>
@@ -24,7 +30,7 @@
                             </ul>
                         </div>
                     {% endif %}
-                    <form method="post" action="{{ url('servers/add') }}" id="postform">
+                    <form method="post" action="{{ url('profile/add') }}" id="postform">
                         <div class="form-row form-group">
                             <div class="col-lg-2">
                                 <label>Revision</label>
@@ -256,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 contentType: false,
                 type: 'POST',
                 data: formData,
-                url: "{{ url('servers/upload') }}",
+                url: "{{ url('upload') }}",
                 mimeType: 'multipart/form-data',
                 xhr: function () {
                     var myXhr = $.ajaxSettings.xhr();

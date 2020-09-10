@@ -22,9 +22,12 @@
 <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
 <meta name="viewport" content="width=device-width, initial-scale=0.87, shrink-to-fit=no">
 <link rel="stylesheet" type="text/css" href="{{ stylesheet('argon.min.css') }}" />
-{% if controller == "servers" or controller == "report" %}
+
+{% if (controller == "profile" and (action == "edit" or action == "add"))
+or controller == "report" %}
 <link rel="stylesheet" type="text/css" href="{{ stylesheet('quill.snow.css') }}" />
 {% endif %}
+
 {% if theme is defined %}
 <link rel="stylesheet" type="text/css" href="{{ stylesheet('themes/'~theme~'.css') }}" />
 {% else %}
