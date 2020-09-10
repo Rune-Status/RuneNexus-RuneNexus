@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Pagination\Paginator;
+use Fox\Request;
 
 class ProfileController extends Controller {
 
