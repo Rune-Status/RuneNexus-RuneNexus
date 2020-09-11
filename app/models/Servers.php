@@ -67,7 +67,8 @@ class Servers extends Model {
                 'ping',
                 'last_ping',
                 'premium_expires',
-                'website'
+                'website',
+                'discord_link'
             )
             ->selectRaw(
                 'IF(premium_expires > '.time().', votes + (premium_level * 100), votes) as votes')
@@ -93,7 +94,8 @@ class Servers extends Model {
                 'ping',
                 'last_ping',
                 'premium_expires',
-                'website'
+                'website',
+                'discord_link'
             )
             ->selectRaw(
                 'IF(premium_expires > '.time().', votes + (premium_level * 100), votes) as votes')
@@ -107,7 +109,6 @@ class Servers extends Model {
     public static function getServer($id) {
         return Servers::where('id', $id)
             ->select('*')
-            
             ->leftJoin('users', 'users.user_id', '=', 'servers.owner')
             ->first();
     }
