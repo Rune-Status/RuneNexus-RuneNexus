@@ -2,14 +2,19 @@
     <div class="container">
         <div class="row row-grid align-items-center">
             <div class="col-lg-6">
-                <h2 class="text-default mb-0">
-                    RuneNexus
-                </h2>
-                <p class="mb-0">
-                    RuneNexus is a new, modern, and effective RuneScape private server toplist. Easily
-                    find all the new and best RSPS out there, or join us today and start advertising your
-                    private server!
-                </p>
+
+                <div class="d-flex align-items-center">
+                    <div class="flex-fill footer-svg text-white pr-3">
+                        {% include 'global/logo_svg.twig' %}
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 text-justify">
+                            RuneNexus is a new, modern, and effective RuneScape private server toplist. Easily
+                            find all the new and best RSPS out there, or join us today and start advertising your
+                            private server!
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-6 btn-wrapper text-center text-lg-right mt-sm-4 mt-lg-0">
@@ -20,6 +25,7 @@
                 <a href="https://discord.gg/D5bQ4qG" class="px-3 text-primary" target="_blank">
                     <img width="32" src="{{ url('public/img/brands/discord.png') }}">
                 </a>
+                
                 <a href="https://github.com/OGKingFox/Toplist/" class="px-3 text-primary" target="_blank">
                     <img width="32" src="{{ url('public/img/brands/github.png') }}">
                 </a>

@@ -48,7 +48,7 @@ class IndexController extends Controller {
     	return true;
     }
 
-    public function details($id, $rate = "month") {
+    public function details($id) {
         $server   = Servers::getServer($id);
 
         if (!$server) {
@@ -58,7 +58,6 @@ class IndexController extends Controller {
 
         $seo = Functions::friendlyTitle($server->id.'-'.$server->title);
 
-        $this->set("rate", $rate);
         $this->set("server", $server);
         $this->set("purifier", $this->getPurifier());
         $this->set("page_title", $server->title);
@@ -97,7 +96,7 @@ class IndexController extends Controller {
             ->first();
 
         if (!$out) {
-            $out = (new Outbound)->fill([
+            (new Outbound)->fill([
                 'server_id'  => $server->id,
                 'ip_address' => $this->request->getAddress(),
                 'clicks'     => 1,

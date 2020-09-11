@@ -365,3 +365,13 @@ a.list-group-item.active {
     border-color: var(--btn-bg);
     background-color: var(--btn-bg);
 }
+.header-svg svg, .footer-svg svg {
+    width:auto;
+    fill: currentColor !important;
+}
+.footer-svg svg {
+    height:90px;
+}
+.header-svg svg {
+    height:90px;
+}
