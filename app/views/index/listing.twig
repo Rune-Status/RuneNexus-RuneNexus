@@ -37,24 +37,21 @@
             </td>
 
             <td class="py-4">
-                <p class="mb-2">
-                    {% if server.revision %}
-                    <span class="badge badge-primary">
-                        {{ server.revision }}
-                    </span>
+                {% if server.revision %} 
+                <span class="badge badge-primary">
+                    {{ server.revision }}
+                </span>
+                {% endif %}
+
+                <a href="{{ url('details/'~server_url) }}">
+                    {% if server.title|length > 40 %}
+                    {{ substr(server.title, 0, 40)~'...' }}
+                    {% else %}
+                    {{ server.title }}
                     {% endif %}
-
-
-                    <a href="{{ url('details/'~server_url) }}">
-                        {% if server.title|length > 40 %}
-                        {{ substr(server.title, 0, 40)~'...' }}
-                        {% else %}
-                        {{ server.title }}
-                        {% endif %}
-                    </a>
-                </p>
+                </a>
                 
-                <a href="{{ url('details/'~server_url) }}" class="d-block" style="max-width:468px;">
+                <a href="{{ url('details/'~server_url) }}" class="d-block mt-2" style="max-width:468px;">
                     <img 
                         {% if server.banner_url %}
                         data-src="{{ banner(server.banner_url) }}"
