@@ -1,16 +1,23 @@
 <div class="card border-0 shadow-sm overflow-hidden mb-2">
     <div class="card-header py-3">
-        Runescape Private Servers
+        <div class="row align-items-center">
+            <div class="col">
+                Runescape Private Servers
+            </div>
+            <div class="col text-right small text-muted">
+                Currently tracking <strong class="text-success">{{ server_count }}</strong> servers!
+            </div>
+        </div>
     </div>
 
     {% set start_rank = servers.firstItem() %}
 
     <table class="table mb-0" style="line-height:1em;">
-        <thead>
+        <thead class="thead-{{ theme }}">
             <tr>
                 <th class="text-center py-2 small border-0">Rank</th>
                 <th class="py-2 small border-0">Server</th>
-                <th class="py-2 border-0">&nbsp;</th>
+                <th class="py-2 border-0 small text-center"></th>
             </tr>
         </thead>
         {% for server in servers.items() %}
@@ -20,7 +27,7 @@
         {% set class = isPremium ? 'bg-premium' : '' %}
         
         <tr id="server" class="{{ class }}">
-            <td class="text-center small">
+            <td class="text-center small pr-1">
                 <p class="mb-1">{{ start_rank }}</p>
 
                 {% if server.ping == -1  %}
