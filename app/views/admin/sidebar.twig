@@ -61,6 +61,22 @@
                 </li>
                 
                 <li class="nav-item">
+                    {% set active = controller == "servers" ? "active" : "" %}
+                    <a class="nav-link {{ active }}" href="{{ url('admin/servers') }}">
+
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill pr-2 {{ icon_class }}">
+                                {{ icon('card-list', 16, 16) }}
+                            </div>
+                            <div class="flex-fill w-100">
+                                Servers
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
                     {% set active = controller == "payments" ? "active" : "" %}
                     <a class="nav-link {{ active }}" href="{{ url('admin/payments') }}">
 

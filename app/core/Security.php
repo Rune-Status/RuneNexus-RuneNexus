@@ -36,7 +36,8 @@ class Security {
             'payments' => ['index'],
             'sponsor'  => ['index', 'add', 'edit', 'delete'],
             'premium'  => ['index', 'add', 'edit', 'delete'],
-            'users'    => ['index', 'banned']
+            'users'    => ['index', 'banned'],
+            'servers'  => ['index', 'details', 'edit', 'delete']
         ];
 
         foreach ($public as $controller => $actions) {

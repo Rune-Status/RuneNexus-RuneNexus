@@ -238,10 +238,10 @@ input.form-control:focus, textarea.form-control:focus, select.form-control:focus
     height: auto;
     max-height: 60px;
     display: block;
-    background-color:var(--form-bg);
+    background-color:var(--banner-bg);
     line-height: 60px;
     text-align: center;
-    color:var(--form-font);
+    color:var(--banner-font) !important;
 }
 
 .footer {

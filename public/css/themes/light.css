@@ -90,4 +90,7 @@
     /** Popover */
     --popover-bg: #FFF;
     --popover-font: #000;
+
+    --banner-bg: rgba(0,0,0,0.1);
+    --banner-font: #000;
 }

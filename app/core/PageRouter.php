@@ -321,16 +321,35 @@ class PageRouter extends Router {
         $this->all('admin/payments', function() {
             return $this->setRoute('payments', 'index', [ 'search' => null, 'page' => 1 ]);
         });
+
         $this->all('admin/payments/([0-9]+)', function($page) {
             return $this->setRoute('payments', 'index', [ 'search' => null, 'page' => $page]);
         });
+
         $this->all('admin/payments/([A-Za-z0-9\-_]+)', function($search) {
             return $this->setRoute('payments', 'index', ['search' => $search, 'page' => 1]);
         });
+
         $this->all('admin/payments/([A-Za-z0-9\-_]+)/([0-9]+)', function($search, $page) {
             return $this->setRoute('payments', 'index', ['search' => $search, 'page' => $page]);
         });
         
+        /**
+         * Admin Payments
+         */
+        $this->all('admin/servers', function() {
+            return $this->setRoute('servers', 'index');
+        });
+
+        $this->all('admin/servers/([0-9]+)', function($page) {
+            return $this->setRoute('servers', 'index', [ 'page' => $page ]);
+        });
+
+        $this->all('admin/servers/edit/([0-9]+)', function($sid) {
+            return $this->setRoute('servers', 'edit', [ 'sid' => $sid ]);
+        });
+
+
     }
 
     public function setRoute($controller, $method, $params = []) {

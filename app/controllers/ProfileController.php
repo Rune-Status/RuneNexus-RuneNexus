@@ -6,6 +6,8 @@ class ProfileController extends Controller {
 
     public function index() {
         $servers = Servers::where('owner', $this->user->user_id)->get();
+
+        
         $roles = implode(", ", json_decode($this->user->roles, true));
         
         $idArr = array_column($servers->toArray(), "id");
@@ -119,11 +121,11 @@ class ProfileController extends Controller {
                     $seo  = Functions::friendlyTitle($create->id.'-'.$create->title);
                     $link = "[{$data['title']}](https://rune-nexus.com/details/{$seo})";
 
-                    (new DiscordMessage([
-                        'channel_id' => '607320502268330016',
-                        'title'      => 'New Server!',
-                        'message'    => "{$this->user->username} has listed a new server: $link",
-                    ]))->send();
+                    (new DiscordMessage)
+                        ->setChannel("607320502268330016")
+                        ->setTitle("New Server")
+                        ->setMessage("{$this->user->username} has listed a new server: $link")
+                        ->send();
                     
                     $this->redirect("details/".$seo);
                     exit;
@@ -144,16 +146,26 @@ class ProfileController extends Controller {
             return false;
         }
 
-        if ($server->owner != $this->user->user_id) {
-            $this->set("errors/show401");
-            return false;
+        if (!$this->user->isRole(["owner", "administrator"])) { 
+            if ($server->owner != $this->user->user_id) {
+                $this->setView("errors/show401");
+                return false;
+            }
         }
 
         if ($this->request->isPost()) {
             $server->delete();
+
+            (new DiscordMessage)
+                ->setChannel("610038623743639559")
+                ->setTitle("Server Deleted")
+                ->setMessage("{$this->user->username} has deleted a server: {$server->title}")
+                ->send();
+
             $this->request->redirect("profile");
             exit;
         }
+
 
         $this->set("server", $server);
         return true;
@@ -167,9 +179,11 @@ class ProfileController extends Controller {
             return false;
         }
 
-        if ($server->owner != $this->user->user_id) {
-            $this->setView("errors/show401");
-            return false;
+        if (!$this->user->isRole(["owner", "administrator"])) { 
+            if ($server->owner != $this->user->user_id) {
+                $this->setView("errors/show401");
+                return false;
+            }
         }
         
         if ($this->request->isPost()) {
@@ -202,11 +216,11 @@ class ProfileController extends Controller {
                     $seo  = Functions::friendlyTitle($server->id.'-'.$server->title);
                     $link = "[{$data['title']}](https://rune-nexus.com/details/{$seo})";
 
-                    (new DiscordMessage([
-                        'channel_id' => '610038623743639559',
-                        'title'      => 'Server Update',
-                        'message'    => "{$this->user->username} has updated their listing for $link",
-                    ]))->send();
+                    (new DiscordMessage)
+                        ->setChannel("610038623743639559")
+                        ->setTitle("Server Updated")
+                        ->setMessage("{$this->user->username} has updated their listing for $link")
+                        ->send();
 
                     $this->redirect("profile");
                     exit;

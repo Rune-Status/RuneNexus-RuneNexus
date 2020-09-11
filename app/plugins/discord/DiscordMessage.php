@@ -8,9 +8,11 @@ class DiscordMessage extends Discord {
     private $is_rich = true;
     private $tts = false;
 
-    public function __construct($dataArr) {
-        foreach ($dataArr as $key => $value) {
-            $this->$key = $value;
+    public function __construct($dataArr = null) {
+        if ($dataArr != null) {
+            foreach ($dataArr as $key => $value) {
+                $this->$key = $value;
+            }
         }
     }
 
@@ -33,6 +35,21 @@ class DiscordMessage extends Discord {
         } catch (Exception $e) {
             return null;
         }
+    }
+
+    public function setChannel($channel) {
+        $this->channel_id = $channel;
+        return $this;
+    }
+
+    public function setMessage($msg) {
+        $this->message = $msg;
+        return $this;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+        return $this;
     }
 
 
