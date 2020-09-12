@@ -32,7 +32,7 @@ class Servers extends Model {
             'callback_url' => 'url:http,https|max:255',
             'discord_link' => 'url:https|max:255',
             'banner_url'   => ['', function($value) {
-                if (!file_exists('public/img/banners/'.$value)) {
+                if (substr($value, 0, 4) != "http" && !file_exists('public/img/banners/'.$value)) {
                     return 'Image does not exist.';
                 }
             }],

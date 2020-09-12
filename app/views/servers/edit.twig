@@ -143,12 +143,12 @@
                         {% set style = "" %}
 
                         {% if server.banner_url %}
-                            {% set style = "background-image: url("~constant("web_root")~"public/img/banners/"~server.banner_url~");" %}
+                            {% set style = "background-image: url("~banner(server.banner_url)~");" %}
                         {% endif %}
                         
                         <div class="form-group mb-0">
                             <div class="banner-holder rounded border-0 mb-2 text-dark" 
-                                style="width:468px;height:60px;"
+                                style="{{ style }}width:468px;height:60px;"
                                 id="bannerimg">
                                 Click to Upload Banner
                             </div>

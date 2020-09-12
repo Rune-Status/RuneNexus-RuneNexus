@@ -1,0 +1,196 @@
+{% extends 'admin_layout.twig' %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card border-0 mb-3 overflow-hidden">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-muted ls-1 mb-0">Server Info</h6>
+                            <h2 class="mb-0">{{ server.title }}</h2>
+
+                            <span class="small">
+                                Owner: 
+                                <a href="https://discord.com/users/{{ server.owner }}" target="_blank" class="text-default">
+                                    {{ server.username }}#{{ server.discriminator }}
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col" style="max-width:468px;">
+                            <img 
+                                {% if server.banner_url %}
+                                data-src="{{ banner(server.banner_url) }}"
+                                {% endif %}
+                                src="{{ url('public/img/banner-loading.png') }}"
+                                id="banner"
+                                alt="{{ server.banner_url }}"
+                                class="rounded w-100"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0 text-{{ server.website ? "success" : "danger" }}">
+                                {{ server.website != '' ? 'Visible' : 'Hidden' }}
+                            </p>
+                            <p class="small">
+                                Status
+                            </p>
+                        </div>
+                        
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0 text-default">
+                                {% if server.premium_expires > time() %}
+                                    <span class="text-success">
+                                        {{ timeLeft(server.premium_expires, true)}}
+                                    </span>
+                                {% elseif server.premium_expires < time() and server.premium_expires != -1 %}
+                                    <span class="text-danger">
+                                        Expired
+                                    </span>
+                                {% else %}
+                                    n/a
+                                {% endif %}
+                            </p>
+                            <p class="small">
+                                Premium Exp.
+                            </p>
+                        </div>
+                        
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0">
+                                {% if sponsor is defined and sponsor.expires > time() %}
+                                    <span class="text-success">
+                                        {{ timeLeft(sponsor.expires, true)}}
+                                    </span>
+                                {% else %}
+                                    n/a
+                                {% endif %}
+                            </p>
+
+                            <p class="small">
+                                Sponsor Exp.
+                            </p>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0">
+                                {{ server.date_created|date("m.d.y") }}
+                            </p>
+                            <p class="small">
+                                Created
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0 text-{{ server.ping > -1 ? "success" : "danger" }}">
+                                {{ server.ping > -1 ? 'Online' : 'Offline' }}
+                            </p>
+                            <p class="small">
+                                Server Status
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0">
+                                {{ server.server_ip and server.server_ip != -1 ? server.server_ip : 'n/a' }}
+                            </p>
+                            <p class="small">
+                                Server IP
+                            </p>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0">
+                                {{ server.server_port and server.server_port != -1 ? server.server_port : 'n/a' }}
+                            </p>
+                            <p class="small ">
+                                Server Port
+                            </p>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-3">
+                            <p class="mb-0">
+                                {{ server.votes|number_format }}
+                            </p>
+                            <p class="small ">
+                                Votes
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <form method="post" action="">
+                        <label for="premium">Apply Premium Package</label>
+                        <div class="form-group form-row">
+                            <div class="col w-100">
+                                <select class="form-control" name="premium_package">
+                                    {% for package in premium_packages %}
+                                    <option value="{{ package.id }}">
+                                        {{ package.title }}
+                                        (+{{ package.duration/60/60/24 }} days, 
+                                            +{{ package.level * 100}} votes)
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                            <div class="col">
+                                <button class="btn btn-default" type="submit">
+                                    Apply
+                                </button>
+
+                                <a href="{{ url('admin/servers/info/'~server.id~'?revokePremium') }}"
+                                    class="btn btn-link">
+                                    Revoke
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form method="post" action="">
+                        <label for="premium">Apply Sponsor Package</label>
+                        <div class="form-group form-row mb-0">
+                            <div class="col w-100">
+                                <select class="form-control" name="sponsor_package">
+                                    {% for spackage in sponsor_packages %}
+                                    <option value="{{ spackage.id }}">
+                                        {{ spackage.title }}
+                                        (+{{ spackage.duration/60/60/24 }} days)
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                            <div class="col">
+                                <button class="btn btn-default" type="submit">
+                                    Apply
+                                </button>
+
+                                <a href="{{ url('admin/servers/info/'~server.id~'?revokeSponsor') }}"
+                                    class="btn btn-link">
+                                    Revoke
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+
+                <div class="card-footer">
+                    <a href="{{ url('admin/servers/edit/'~server.id) }}" class="btn btn-default">Edit Server</a>
+                    <a href="{{ url('admin/servers/delete/'~server.id) }}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+
+            {{ content|raw}}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

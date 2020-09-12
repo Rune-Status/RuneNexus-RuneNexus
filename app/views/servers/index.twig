@@ -45,32 +45,25 @@
                             <th class="text-center" style="width:75px;">Rev</th>
                             <th>Title</th>
                             <th class="text-right">Votes</th>
-                            <th></th>
                         </tr>
                     </thead>
                     {% for server in servers.items() %}
                     {% set seo = friendlyTitle(server.id~'-'~server.title) %}
 
                     <tr>
-                        <td class="text-center">{{ server.id }}</td>
-                        <td class="text-center">{{ server.revision }}</td>
+                        <td class="text-center">
+                            {{ server.id }}
+                        </td>
+                        <td class="text-center">
+                            {{ server.revision }}
+                        </td>
                         <td>
-                            <div class="text-truncate" style="max-width:200px;">
+                            <a class="text-truncate d-block" style="max-width:200px;" 
+                                href="{{ url('admin/servers/info/'~server.id) }}">
                                 {{ server.title }}
-                            </div>
+                            </a>
                         </td>
                         <td class="text-right">{{ server.votes }}</td>
-                        <td class="text-right">
-                            <a href="" class="px-2">
-                                {{ icon('info-circle')}}
-                            </a>
-                            <a href="{{ url('admin/servers/edit/'~server.id) }}" class="px-2">
-                                {{ icon('pencil')}}
-                            </a>
-                            <a href="" class="px-2">
-                                {{ icon('trash')}}
-                            </a>
-                        </td>
                     </tr>
                     {% endfor %}
                 </table>

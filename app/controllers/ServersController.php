@@ -7,9 +7,109 @@ class ServersController extends Controller {
 
     public function index($page = 1) {
         $servers = Servers::getAdminServers($page);
-
-
         $this->set("servers", $servers);
+        return true;
+    }
+
+    public function info($id) {
+        $server = Servers::getServer($id);
+
+        if (!$server) {
+            $this->setView("errors/show404");
+            return false;
+        }
+
+
+        $csrf = new AntiCSRF;
+
+        if ($this->request->isPost() && $csrf->isValidPost()) {
+            if ($this->request->hasPost("premium_package")) {
+                $pid = $this->request->getPost("premium_package");
+                $pkg = Premium::where("id", $pid)->first();
+
+                if (!$pkg) {
+                    $this->redirect("admin/servers/info/".$server->id);
+                    exit;
+                }
+
+                if ($pkg->level > $server->premium_level) {
+                    $server->premium_level = $pkg->level;
+                }
+        
+                if ($server->premium_expires > time()) {
+                    $server->premium_expires = $server->premium_expires + $pkg->duration;
+                } else {
+                    $server->premium_expires = time() + $pkg->duration;
+                }
+        
+                $server->save();
+                $this->redirect("admin/servers/info/".$server->id);
+                exit;
+            }
+
+            if ($this->request->hasPost("sponsor_package")) {
+                $pid = $this->request->getPost("sponsor_package");
+                $pkg = SponsorPackages::where('id', $pid)->first();
+                
+                if (!$pkg) {
+                    
+                    exit;
+                }
+
+                $sponsor = Sponsors::where("server_id", $server->id)->first();
+
+                if ($sponsor) {
+                    $sponsor->expires = $sponsor->expires + $pkg->duration;
+                } else {
+                    $sponsor = new Sponsors;
+    
+                    $sponsor->fill([
+                        'server_id' => $server->id,
+                        'started' => time(),
+                        'expires' => time() + $pkg->duration
+                    ]);
+                }
+
+                $sponsor->save();
+                $this->redirect("admin/servers/info/".$server->id);
+                exit;
+            }
+        }
+
+        if ($this->request->hasQuery("revokePremium")) {
+            $server->premium_level   = 0;
+            $server->premium_expires = time() - 1;
+            $server->update();
+            $this->redirect("admin/servers/info/".$server->id);
+            exit;
+        }
+
+        if ($this->request->hasQuery("revokeSponsor")) {
+            $sponsor = Sponsors::where("server_id", $server->id)->first();
+
+            if ($sponsor) {
+                $sponsor->expires = time() - 1;
+                $sponsor->update();
+            }
+            
+            $this->redirect("admin/servers/info/".$server->id);
+            exit;
+        }
+
+
+        $sponsor = Sponsors::where("server_id", $server->id)->first();
+
+        if ($sponsor) {
+            $this->set("sponsor", $sponsor);
+        }
+
+        $premium_packages = Premium::get();
+        $sponsor_packages = SponsorPackages::get();
+
+        $this->set("premium_packages", $premium_packages);
+        $this->set("sponsor_packages", $sponsor_packages);
+        $this->set("server", $server);
+        $this->set("csrf_token", $csrf->getToken());
         return true;
     }
 
