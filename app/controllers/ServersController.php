@@ -27,7 +27,6 @@ class ServersController extends Controller {
             return false;
         }
 
-
         $csrf = new AntiCSRF;
 
         if ($this->request->isPost() && $csrf->isValidPost()) {

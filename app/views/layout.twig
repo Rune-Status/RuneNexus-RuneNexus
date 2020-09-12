@@ -14,6 +14,7 @@
 {% else %}
 <meta name="keywords" content="osrs,itemdb,toplist,rsps list,topg,rspslist,best rsps,top rsps,mmo,runescape,rsps,rsps toplist,private,server,runelocus,rune-server,rune-list,runelist,top100,arena,everythingrs,moparscape,rsps-page,best-rsps,runescape private server">
 {% endif %}
+
 {% if meta_info is defined and meta_info is not empty %}
 <meta name="description" content="{{ meta_info }}">
 {% else %}
@@ -42,6 +43,7 @@ or controller == "report" %}
 <body>
     {% include 'global/navbar.twig' %}
     {% include 'global/header.twig' %}
+    {% include 'global/cookie_notice.twig' %}
 
     {% block content %}
     {% endblock %}

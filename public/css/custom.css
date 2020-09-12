@@ -370,8 +370,25 @@ a.list-group-item.active {
     fill: currentColor !important;
 }
 .footer-svg svg {
-    height:90px;
+    height:46px;
 }
 .header-svg svg {
     height:90px;
+}
+
+.cookie-notice {
+    box-shadow: 0 0 45px rgba(0,0,0,0.4);
+}
+.cookie-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 5px;
+    text-align:center;
+    line-height: 50px;
+}
+
+.cookie-icon svg {
+    height:50px !important;
+    width:64px !important;
+    fill: currentColor !important;
 }

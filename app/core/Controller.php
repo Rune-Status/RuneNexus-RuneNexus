@@ -50,6 +50,8 @@ class Controller {
         $token = $this->cookies->get("access_token");
         $roles = ["Guest"];
 
+        $this->set("hide_cookies", $this->cookies->get("hide_notice") != null);
+        
         if ($token) {
             try {
                 $discord = new Discord($this->filter($token));
