@@ -299,7 +299,9 @@ class PageRouter extends Router {
         $this->all('tools/itemdb', function() {
             return $this->setRoute('tools', 'itemdb');
         });
-        
+        $this->all('tools/items', function() {
+            return $this->setRoute('tools', 'itemdb');
+        });
         $this->all('tools/itemdb/search', function() {
             return $this->setRoute('tools', 'search');
         });

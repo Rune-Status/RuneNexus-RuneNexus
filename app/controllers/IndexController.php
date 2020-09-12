@@ -26,7 +26,6 @@ class IndexController extends Controller {
             $this->set("revision", $revision);
         } else {
             $servers = Servers::getAll($page);
-            $this->set("page_title", "Servers");
         }
 
         $sponsors = Sponsors::select([
