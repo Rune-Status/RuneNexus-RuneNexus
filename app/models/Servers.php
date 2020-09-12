@@ -106,6 +106,27 @@ class Servers extends Model {
             ->paginate(per_page);
     }
 
+    public static function searchServers($name, $page = 1) {
+        Paginator::currentPageResolver(function() use ($page) {
+            return $page;
+        });
+
+        return Servers::where('website', '!=', null)
+            ->select(
+                'id', 
+                'title', 
+                'revision',
+                'votes',
+                'banner_url', 
+                'is_online',
+                'premium_expires'
+            )
+            ->where('title', 'LIKE', '%'.$name.'%')
+            ->orWhere('owner', '=', ''.$name.'')
+            ->orderBy('id', 'ASC')
+            ->paginate(per_page);
+    }
+
     public static function getAdminServers($page = 1) {
         Paginator::currentPageResolver(function() use ($page) {
             return $page;

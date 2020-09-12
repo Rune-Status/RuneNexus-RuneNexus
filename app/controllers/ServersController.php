@@ -6,7 +6,15 @@ use Fox\Request;
 class ServersController extends Controller {
 
     public function index($page = 1) {
-        $servers = Servers::getAdminServers($page);
+        if ($this->request->hasQuery("search")) {
+            $search  = $this->request->getQuery("search", "string");
+            $servers = Servers::searchServers($search, $page);
+
+            $this->set("search", $search);
+        } else {
+            $servers = Servers::getAdminServers($page);
+        }
+        
         $this->set("servers", $servers);
         return true;
     }
@@ -91,7 +99,7 @@ class ServersController extends Controller {
                 $sponsor->expires = time() - 1;
                 $sponsor->update();
             }
-            
+
             $this->redirect("admin/servers/info/".$server->id);
             exit;
         }
