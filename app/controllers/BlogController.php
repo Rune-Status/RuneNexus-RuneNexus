@@ -39,11 +39,17 @@ class BlogController extends Controller {
             return false;
         }
 
+        $canEdit = $this->user != null && ($this->user->isRole(['owner']) 
+            || $post->author_id == $this->user->user_id);
+
         $this->set("post", $post);
         $this->set("page_title", $post->title);
+
         if ($post->meta_tags) {
             $this->set("meta_tags", implode(",", json_decode($post->meta_tags, true)));
         }
+
+        $this->set("can_edit", $canEdit);
         $this->set("meta_info", $post->meta_description);
         return true;
     }
@@ -51,11 +57,13 @@ class BlogController extends Controller {
     public function add() {
         $csrf = new AntiCSRF;
 
-        if (!$this->user->isRole(['owner'])) {
-            if (!$this->user->isRole(['blog author'])) {
-                $this->setView("errors/show401");
-                return false;
-            }
+        $canPost = $this->user != null && $this->user->isRole([
+            'owner', 'blog author'
+        ]);
+
+        if (!$canPost) {
+            $this->setView("errors/show401");
+            return false;
         }
 
         if ($this->request->isPost() && $csrf->isValidPost()) {
@@ -97,11 +105,12 @@ class BlogController extends Controller {
             return false;
         }
 
-        if (!$this->user->isRole(['owner'])) {
-            if ($post->author_id != $this->user->user_id) {
-                $this->setView("errors/show401");
-                return false;
-            }
+        $canEdit = $this->user != null && ($this->user->isRole(['owner']) 
+            || $post->author_id == $this->user->user_id);
+
+        if (!$canEdit) {
+            $this->setView("errors/show401");
+            return false;
         }
 
         $csrf = new AntiCSRF;
@@ -135,9 +144,12 @@ class BlogController extends Controller {
         }
 
         $this->set("post", $post);
+
         if ($post->meta_tags) {
             $this->set("meta_tags", implode(",", json_decode($post->meta_tags, true)));
         }
+
+        $this->set("can_edit", $canEdit);
         $this->set("csrf_token", $csrf->getToken());
         return true;
     }
@@ -150,6 +162,14 @@ class BlogController extends Controller {
 
         if (!$post) {
             $this->setView("errors/show404");
+            return false;
+        }
+
+        $canDelete = $this->user != null && ($this->user->isRole(['owner']) 
+            || $post->author_id == $this->user->user_id);
+
+        if (!$canDelete) {
+            $this->setView("errors/show401");
             return false;
         }
 

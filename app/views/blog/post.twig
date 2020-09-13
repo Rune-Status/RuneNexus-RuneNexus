@@ -24,7 +24,7 @@
                             <a href="{{ url('blog') }}" class="btn btn-default">Blog Home</a>
                             
                             <a href="{{ url('blog/edit/'~post.id) }}" 
-                                class="btn btn-default {{ user is defined and user.user_id == post.author_id ? "" : "disabled" }}">
+                                class="btn btn-default {{ can_edit ? "" : "disabled" }}">
                                 Edit Post
                             </a>
                         </div>
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="card-footer text-right">
-                    <a href="{{ url('blog/delete/'~post.id) }}" class="btn btn-danger">
+                    <a href="{{ url('blog/delete/'~post.id) }}" class="btn btn-danger {{ can_edit ? "" : "disabled" }}">
                         Delete Post
                     </a>
                 </div>
