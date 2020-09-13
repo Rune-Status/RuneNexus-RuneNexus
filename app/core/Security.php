@@ -23,12 +23,14 @@ class Security {
             'login'   => ['index', 'discord', 'auth', 'dauth'],
             'errors'  => ['show404', 'show500', 'show401', 'missing'],
             'pages'   => ['docs', 'updates', 'stats', 'terms', 'privacy', 'nyan'],
-            'tools'   => ['itemdb', 'search']
+            'tools'   => ['itemdb', 'search'],
+            'blog'    => ['index', 'post']
         ];
 
         $private = [
             'ads'     => ['index', 'button', 'verify', 'process'],
             'profile' => ['index', 'stats', 'add', 'edit', 'delete', 'upload', 'payments'],
+            'blog'    => ['add', 'edit', 'delete']
         ];
 
         $admin = [
