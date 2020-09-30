@@ -124,6 +124,9 @@
         {% endfor %}
     </table>
 </div>
+
+
+{% if servers.currentPage() == 1 %}
 <hr>
 <div class="card border-0 shadow-sm mb-3">
     <div class="card-body">
@@ -137,6 +140,7 @@
         <a href="https://us.jooble.org" target="_blank" class="btn btn-primary">Visit Site</a>
     </div>
 </div>
+{% endif %}
 
 {% set totalPages = servers.lastPage() %}
 {% set current = servers.currentPage() %}
