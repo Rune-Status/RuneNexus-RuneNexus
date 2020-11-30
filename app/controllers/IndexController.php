@@ -117,8 +117,7 @@ class IndexController extends Controller {
     }
 
     public function getHttpCode($website) {
-        $url = 'http://www.example.com';
-        $ch = curl_init($url);
+        $ch = curl_init($website);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
         curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
