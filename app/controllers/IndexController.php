@@ -95,6 +95,7 @@ class IndexController extends Controller {
 
         if ($http_code != 200 && $http_code != 301 && $http_code != 302 && $http_code != 303 && $http_code != 307) {
             $this->setView("errors/show401");
+            $this->show();
             return false;
         }
 
