@@ -94,7 +94,7 @@ class IndexController extends Controller {
         $http_code = $this->getHttpCode($website);
 
         if ($http_code != 200) {
-            $this->redirect($website, false);
+            $this->redirect("");
             exit;
         }
 
