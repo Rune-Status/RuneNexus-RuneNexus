@@ -93,9 +93,12 @@ class IndexController extends Controller {
 
         $http_code = $this->getHttpCode($website);
 
-        echo $http_code;
+        if ($http_code != 200) {
+            $this->redirect($website, false);
+            exit;
+        }
 
-        /*$out = Outbound::where("server_id", $server->id)
+        $out = Outbound::where("server_id", $server->id)
             ->where("ip_address", $this->request->getAddress())
             ->first();
 
@@ -112,7 +115,7 @@ class IndexController extends Controller {
             $out->update();
         }
 
-        $this->redirect($website, false);*/
+        $this->redirect($website, false);
         exit;
     }
 
