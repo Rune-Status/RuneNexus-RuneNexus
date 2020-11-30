@@ -66,7 +66,7 @@ class App {
         }
 
         if (!$output) {
-            return true;
+            return false;
         }
 
         $content = ob_get_contents();

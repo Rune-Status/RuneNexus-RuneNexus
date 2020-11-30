@@ -86,7 +86,7 @@ class IndexController extends Controller {
 
         $website = $server->website;
 
-        if (!$website) {
+        if (!$website || $this->getHttpCode($website) != 200) {
             $this->redirect("");
             exit;
         }
@@ -110,6 +110,20 @@ class IndexController extends Controller {
 
         $this->redirect($website, false);
         exit;
+    }
+
+    public function getHttpCode($website) {
+        $url = 'http://www.example.com';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
+        curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+        $output = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        return $httpcode;
     }
 
     public function logout() {
