@@ -2,23 +2,23 @@
 class PagesController extends Controller {
 
     public function docs() {
-
+        return true;
     }
 
     public function updates() {
-        
+        return true;
     }
 
     public function terms() {
-        
+        return true;
     }
 
     public function privacy() {
-
+        return true;
     }
 
     public function nyan() {
-
+        return true;
     }
     
     public function stats() {
