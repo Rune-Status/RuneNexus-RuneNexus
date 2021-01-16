@@ -75,4 +75,31 @@ class Discord {
         return $json;
     }
 
+     /**
+     * Get access token using a token provided during Oauth
+     * @param $code the code
+     * @return JSON the json data received from discord api
+     */
+    public function getAccessToken($code) {
+        $api_url = 'https://discordapp.com/api/oauth2/token';
+
+        // send a post request to get the data
+        $response = (new Client())->request('POST', $api_url, [
+            'headers' => [
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ],
+            'form_params' => [
+                "grant_type"    => "authorization_code",
+                'client_id'     => discord['client_id'],
+                'client_secret' => discord['client_secret'],
+                'redirect_uri'  => discord['redirect_uri'],
+                'code'          => $code
+            ],
+            'http_errors' => false # disable throwing http errors so we can handle it ourselves
+        ])->getBody();
+
+        // decode the json data so we can use it
+        return json_decode($response);
+    }
+
 }

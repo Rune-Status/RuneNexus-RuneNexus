@@ -53,25 +53,28 @@ class App {
             }
         }
 
-        $controller = $this->controller;
-        $method     = $this->router->getMethod();
-        $params     = $this->router->getParams();
+        ob_start();
 
-        $output = call_user_func_array([$controller, $method], $params);
+        $output = call_user_func_array([
+            $this->controller, 
+            $this->router->getMethod()
+        ], $this->router->getParams());
 
-        if ($this->controller->isJson()) {
+        if (is_array($output)) {
             header('Content-Type: application/json');
-            echo json_encode($output);
-            return;
+            echo json_encode($output ? $output : []);
+            return false;
         }
 
         if (!$output) {
             return false;
         }
 
-        $content = ob_get_contents();
-        ob_end_clean();
-        $this->controller->set("content", $content);
+        if (ob_get_length()) {
+            $content = ob_get_contents();
+            ob_end_clean();
+            $this->controller->set("content", $content);
+        }
         return true;
     }
 

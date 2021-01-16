@@ -47,44 +47,78 @@ class Controller {
         $this->csrf     = new EasyCSRF(new NativeSessionProvider());
         $this->session  = Session::getInstance();
 
-        $token = $this->cookies->get("access_token");
-        $roles = ["Guest"];
+        $controller = $this->router->getController();
+        $action     = $this->getActionName();
+        $token      = $this->cookies->get("session_token");
+        $roles      = ["Guest"];
 
         $this->set("hide_cookies", $this->cookies->get("hide_notice") != null);
         
         if ($token) {
-            try {
-                $discord = new Discord($this->filter($token));
+            $session = Sessions::where("token", $token)->first();
 
-                $discord->setEndpoint("/users/@me"); 
-                $me = $discord->get();
+            if (!$session) {
+                $this->cookies->delete("session_token");
+                $this->request->redirect("");
+                exit;
+            }
 
-                if (!$me || isset($me['code'])) {
-                    $this->cookies->delete("access_token");
-                    $this->redirect("");
+            // if ip address doesn't match, delete token
+            if ($session->ip_address != $this->request->getAddress()) {
+                $session->expires = -1;
+                $session->update();
+
+                $this->cookies->delete("session_token");
+                $this->request->redirect("");
+                exit;
+            }
+
+            // if expired, delete token
+            if (time() >= $session->expires) {
+                $session->expires = -1;
+                $session->update();
+
+                $this->cookies->delete("session_token");
+                $this->request->redirect("");
+                exit;
+            }
+
+            $user = Users::where('user_id', $session->user_id)->first();
+
+            if (!$user) {
+                $discord  = new Discord($session->discord_token);
+                $discord->setEndpoint("/users/@me");
+                $userData = $discord->get();
+
+                if (!$userData || isset($userData->code)) {
+                    $session->expires = -1;
+                    $session->update();
+
+                    $this->cookies->delete("session_token");
+                    $this->request->redirect("");
                     exit;
                 }
 
-                $user = Users::where('user_id', $me['id'])->first();
+                $user = new Users;
+                
+                $user->fill([
+                    'user_id'       => $userData['id'],
+                    'discriminator' => $userData['discriminator'], 
+                    'username'      => $userData['username'],
+                    'email'         => $userData['email'],
+                    'avatar'        => $userData['avatar'],
+                    'roles'         => json_encode(['Member']),
+                    'join_date'     => time()
+                ]);
 
-                if (!$user) {
-                    $this->cookies->delete("access_token");
-                    $this->redirect("");
-                    return;
-                }
-
-                $this->set("user", $user);
-                $this->user = $user;
-                $roles = json_decode($user->roles, true);
-            } catch (Exception $e) {
-                $this->cookies->delete("access_token");
-                $this->redirect("");
-                exit;
+                $user->save();
             }
+            
+            $this->set("user", $user);
+            $this->user = $user;
+            $roles = json_decode($user->roles, true);
         }
 
-        $controller = $this->router->getController();
-        $action     = $this->getActionName();
         $canAccess  = Security::canAccess($controller, $action, $roles);
         
         $themes     = ['dark', 'light'];

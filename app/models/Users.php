@@ -8,7 +8,7 @@ class Users extends Model {
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'user_id', 'discriminator', 'username', 'role', 'premium_level',
+        'user_id', 'discriminator', 'username', 'roles', 'premium_level',
         'premium_expires', 'theme_id', 'email', 'avatar', 'join_date'
     ];
 
@@ -16,7 +16,6 @@ class Users extends Model {
         $user_roles = json_decode(strtolower($this->roles), true);
 
         if (is_array($search)) {
-
             foreach ($search as $role) {
                 if (in_array(strtolower($role), $user_roles)) {
                     return true;
@@ -42,4 +41,8 @@ class Users extends Model {
         return array_values($data['chart']);
     }
 
+    public function isOwner() {
+        $user_roles = json_decode(strtolower($this->roles), true);
+        return in_array("owner", $user_roles);
+    }
 }

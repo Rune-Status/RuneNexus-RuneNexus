@@ -1,111 +1,114 @@
 <?php
+use GuzzleHttp\Client;
 
 class LoginController extends Controller {
 
     public function index() {
-        return true;
-    }
+        $code = $this->request->getQuery("code", "string");
 
-    public function token() {
-        if (!$this->request->hasPost("access_token")) {
+        if (!$code) {
+            $this->request->redirect("");
+            exit;
+        }
+
+        $discord  = new Discord;
+        $response = $discord->getAccessToken($code);
+
+        if (!$response || isset($response->error)) {
+            $this->request->redirect("");
+            return false;
+        }
+
+        $access_token  = $response->access_token;
+        $token_expires = $response->expires_in;
+
+        $discord->setToken($access_token);
+        $discord->setEndpoint("/users/@me"); 
+
+        $userData = $discord->get();
+
+        if (!$userData || isset($userData->code)) {
             return [
-                'success' => 'false',
-                'message' => 'Invalid post data.'
+                'success' => false,
+                'message' => $userData ? $userData->message : 'No user data.'
             ];
         }
 
-        try {
-            $access_token = $this->request->getPost("access_token", "string");
-
-            $client  = new GuzzleHttp\Client();
-            $discord = new Discord($access_token);
-
-            $discord->setEndpoint("/users/@me"); 
-            $me = $discord->get();
-            
-            if (!$me || isset($me['code'])) {
-                $this->cookies->remove("access_token");
-                return [
-                    'success' => false,
-                    'message' => 'Could not fetch user data. Error '.$me['code']
-                ];
-            }
-
-            $user = Users::firstOrCreate(
-                ['user_id' => $me['id']],
-                [
-                    'discriminator' => $me['discriminator'], 
-                    'username'      => $me['username'],
-                    'email'         => $me['email'],
-                    'avatar'        => $me['avatar'],
-                    'roles'         => ['Member'],
-                    'join_date'     => time()
-                ]
-            );
-
-            if (!$user->wasRecentlyCreated) {
-                $user->username      = $me['username'];
-                $user->discriminator = $me['discriminator'];
-                $user->email         = $me['email'];
-                $user->avatar        = $me['avatar'];
-                $user->update();
-            }
+        $user = Users::firstOrCreate(
+            ['user_id' => $userData['id']],
+            [
+                'discriminator' => $userData['discriminator'], 
+                'username'      => $userData['username'],
+                'email'         => $userData['email'],
+                'avatar'        => $userData['avatar'],
+                'roles'         => ['Member'],
+                'join_date'     => time()
+            ]
+        );
+    
+        if (!$user->wasRecentlyCreated) {
+            $user->username      = $userData['username'];
+            $user->discriminator = $userData['discriminator'];
+            $user->email         = $userData['email'];
+            $user->avatar        = $userData['avatar'];
+        }
+    
+        if ($userData['avatar'] != $user->avatar) {
+            $user->avatar = $userData['avatar'];
+        }
         
-            if ($me['avatar'] != $user->avatar) {
-                $user->avatar = $me['avatar'];
+        $user->roles = $this->getServerRoles($discord, $user);
+        $user->update();
+
+        $tokens = [
+            Functions::generateString(6),
+            Functions::generateString(10),
+            Functions::generateString(4),
+        ];
+        
+        $sess_token = implode("-", $tokens);
+
+        (new Sessions)->fill([
+            'token'         => $sess_token,
+            'user_id'       => $user['user_id'],
+            'ip_address'    => $this->request->getAddress(),
+            'started'       => time(),
+            'expires'       => time() + $token_expires,
+            'discord_token' => $access_token
+        ])->save();
+        
+        $this->cookies->set("session_token", $sess_token, $token_expires);
+        $this->request->redirect("");
+        exit;
+    }
+
+    public function getServerRoles($discord, $user) {
+        try {
+            $discord->setEndpoint('/guilds/'.discord['guild_id'].'/members/'.$user['user_id']); 
+            $discord->setIsBot(true);
+            $userInfo = $discord->get();
+            
+            // if user is not in guild, just return default
+            if (!$userInfo || isset($userInfo['code'])) {
+                return ["Member"];
             }
 
-            try {
-                $discord->setEndpoint('/guilds/'.discord['guild_id'].'/members/'.$user['user_id']); 
-                $discord->setIsBot(true);
-                $userInfo = $discord->get();
-                
-                if (!$userInfo || isset($userInfo['code'])) {
-                    $user->roles = ["Member"];
-                    $user->save();
-                    $this->cookies->set("access_token", $access_token, 86400 * 7);
-                    return [
-                        'success' => true,
-                        'message' => 'You have successfully logged in!'
-                    ];
+            $discord->setEndpoint('/guilds/'.discord['guild_id']); 
+            $discord->setIsBot(true);
+            $server = $discord->get();
+
+            $server_roles = $server['roles'];
+            $roles = ['Member'];
+
+            foreach ($server_roles as $sr) {
+                if (in_array($sr['id'], $userInfo['roles'])) {
+                    $roles[] = $sr['name'];
                 }
-                
-                $discord->setEndpoint('/guilds/'.discord['guild_id']); 
-                $discord->setIsBot(true);
-                $server = $discord->get();
-
-                $server_roles = $server['roles'];
-                $roles = ['Member'];
-
-                foreach ($server_roles as $sr) {
-                    if (in_array($sr['id'], $userInfo['roles'])) {
-                        $roles[] = $sr['name'];
-                    }
-                }
-
-                $user->roles = $roles;
-                $user->save();
-                $this->cookies->set("access_token", $access_token, 86400 * 7);
-
-                return [
-                    'success' => true,
-                    'message' => 'You have successfully logged in!'
-                ];
-            } catch(Exception $e) {
-                $user->roles = ["Member"];
-                $user->save();
-                $this->cookies->set("access_token", $access_token, 86400 * 7);
-
-                return [
-                    'success' => true,
-                    'message' => 'You have successfully logged in!'
-                ];
             }
+
+            return $roles;
         } catch (Exception $e) {
-            return [
-                'success' => false,
-                'message' => "An error occured: ".$e->getMessage()
-            ];
+            return ["Member"];
         }
     }
 
@@ -113,7 +116,7 @@ class LoginController extends Controller {
         $params = array(
             'client_id'     => discord['client_id'],
             'redirect_uri'  => discord['redirect_uri'],
-            'response_type' => 'token',
+            'response_type' => 'code',
             'scope'         => 'identify guilds email'
         );
 
@@ -121,16 +124,6 @@ class LoginController extends Controller {
             'success' => true,
             'message' => 'https://discordapp.com/api/oauth2/authorize?'.http_build_query($params)
         ];
-    }
-
-    public function beforeExecute() {
-        parent::beforeExecute();
-
-        if ($this->getActionName() == "discord" || $this->getActionName() == "token") {
-            $this->disableView(true);
-            return true;
-        }
-        return true;
     }
 
 }
