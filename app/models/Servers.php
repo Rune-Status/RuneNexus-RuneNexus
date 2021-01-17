@@ -148,7 +148,7 @@ class Servers extends Model {
     }
 
     public static function getServer($id) {
-        return Servers::where('id', $id)
+        return Servers::where('servers.id', $id)
             ->select('*')
             ->leftJoin('users', 'users.user_id', '=', 'servers.owner')
             ->first();
