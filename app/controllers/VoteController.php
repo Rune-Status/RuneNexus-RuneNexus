@@ -6,7 +6,8 @@ class VoteController extends Controller {
     private static $columns = [
         'servers.id', 'servers.title', 'servers.revision', 'servers.votes', 
         'servers.banner_url', 'servers.is_online', 'servers.premium_expires',
-        'users.username', 'servers.owner', 'servers.server_ip', 'servers.server_port'
+        'users.username', 'servers.owner', 'servers.server_ip', 'servers.server_port',
+        'servers.callback_url'
     ];
 
     public function index($serverId, $incentive) {
