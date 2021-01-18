@@ -3,12 +3,22 @@ use Fox\Request;
 
 class VoteController extends Controller {
 
+    private static $columns = [
+        'servers.id', 'servers.title', 'servers.revision', 'servers.votes', 
+        'servers.banner_url', 'servers.is_online', 'servers.premium_expires',
+        'users.username', 'servers.owner', 'servers.server_ip', 'servers.server_port'
+    ];
+
     public function index($serverId, $incentive) {
-        $server = Servers::getServer($serverId);
+        $server = Servers::select(self::$columns)
+            ->where("servers.id", $serverId)
+            ->orderBy('servers.id', 'DESC')
+            ->leftJoin("users", "users.user_id", "=", "servers.owner")
+            ->first();
         
         if (!$server) {
-           $this->setView("errors", "show404");
-           return false;
+           $this->setView("errors/show404");
+           return true;
         }
 
         $ip   = $this->request->getAddress();
@@ -43,12 +53,16 @@ class VoteController extends Controller {
             ];
         }
 
-        $server = Servers::getServer($id);
+        $server = Servers::select(self::$columns)
+            ->where("servers.id", $id)
+            ->orderBy('servers.id', 'DESC')
+            ->leftJoin("users", "users.user_id", "=", "servers.owner")
+            ->first();
         
         if (!$server) {
             return [
                 'success' => false,
-                'message' => 'Invalid server id'
+                'message' => 'Invalid server id - '.json_encode($_POST)
             ];
         }
 
