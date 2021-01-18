@@ -49,7 +49,7 @@ class IndexController extends Controller {
     }
 
     public function details($id) {
-        $server   = Servers::getServer($id);
+        $server = Servers::getServer($id);
 
         if (!$server) {
             $this->setView("errors/show404");
@@ -80,8 +80,8 @@ class IndexController extends Controller {
         $server = Servers::getServer($serverId);
 
         if (!$server) {
-            $this->setView("errors/show401");
-            return false;
+            $this->setView("errors/show404");
+            return true;
         }
 
         $website = $server->website;
@@ -96,7 +96,7 @@ class IndexController extends Controller {
         if ($http_code != 200 && $http_code != 301 && $http_code != 302 && $http_code != 303 && $http_code != 307) {
             $this->setView("errors/show404");
             $this->show();
-            return false;
+            return true;
         }
 
         $out = Outbound::where("server_id", $server->id)
@@ -116,7 +116,7 @@ class IndexController extends Controller {
             $out->update();
         }
 
-        $this->redirect($website, false);
+        $this->request->redirect($website, false);
         exit;
     }
 

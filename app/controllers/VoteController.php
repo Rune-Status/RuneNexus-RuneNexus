@@ -2,20 +2,9 @@
 use Fox\Request;
 
 class VoteController extends Controller {
-
-    private static $columns = [
-        'servers.id', 'servers.title', 'servers.revision', 'servers.votes', 
-        'servers.banner_url', 'servers.is_online', 'servers.premium_expires',
-        'users.username', 'servers.owner', 'servers.server_ip', 'servers.server_port',
-        'servers.callback_url'
-    ];
-
+    
     public function index($serverId, $incentive) {
-        $server = Servers::select(self::$columns)
-            ->where("servers.id", $serverId)
-            ->orderBy('servers.id', 'DESC')
-            ->leftJoin("users", "users.user_id", "=", "servers.owner")
-            ->first();
+        $server = Servers::getServer($serverId);
         
         if (!$server) {
            $this->setView("errors/show404");
@@ -54,11 +43,7 @@ class VoteController extends Controller {
             ];
         }
 
-        $server = Servers::select(self::$columns)
-            ->where("servers.id", $id)
-            ->orderBy('servers.id', 'DESC')
-            ->leftJoin("users", "users.user_id", "=", "servers.owner")
-            ->first();
+        $server = Servers::getServer($id);
         
         if (!$server) {
             return [

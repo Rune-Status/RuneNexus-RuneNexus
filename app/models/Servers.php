@@ -15,40 +15,35 @@ class Servers extends Model {
         'description', 'date_created', 'premium_level', 'premium_expires'
     ];
 
-   public static function validate($validate){
-        $validator = new Validator;
-
-        $validation = $validator->validate($validate, [
-            'revision'     => ['required', function($value) {
-                $revision = Revisions::where('revision', $value)->first();
-                if (!$revision) {
-                    return ":attribute is not a valid revision.";
-                }
-            }],
-            'title'        => 'required|min:6|max:150',
-            'server_port'  => 'numeric|min:0|max:65535',
-            'server_ip'    => 'ipv4',
-            'website'      => 'url:http,https|max:255',
-            'callback_url' => 'url:http,https|max:255',
-            'discord_link' => 'url:https|max:255',
-            'banner_url'   => ['', function($value) {
-                if (substr($value, 0, 4) != "http" && !file_exists('public/img/banners/'.$value)) {
-                    return 'Image does not exist.';
-                }
-            }],
-            'meta_tags' => ['max:300', function($value) {
-                if (count($value) > 15) {
-                    return 'You can\'t have more than 15 meta tags.';
-                }
-            }],
-            'description' => 'required|min:7'
-        ]);
-
-        return $validation;
-   }
-
     public function user() {
         return $this->belongsTo('Users', 'owner', 'id');
+    }
+
+    public static function getServer($id) {
+        $columns = [
+            'servers.id', 
+            'servers.title', 
+            'servers.revision', 
+            'servers.votes', 
+            'servers.banner_url', 
+            'servers.is_online', 
+            'servers.premium_expires',
+            'servers.owner', 
+            'servers.server_ip', 
+            'servers.server_port',
+            'servers.callback_url', 
+            'servers.website', 
+            'servers.description',
+            'users.username', 
+            'users.discriminator', 
+            'users.user_id',
+        ];
+
+        return Servers::select($columns)
+            ->where("servers.id", $id)
+            ->orderBy('servers.id', 'DESC')
+            ->leftJoin("users", "users.user_id", "=", "servers.owner")
+            ->first();
     }
 
     public static function getByRevision($revision, $page = 1) {
@@ -147,13 +142,6 @@ class Servers extends Model {
             ->paginate(per_page);
     }
 
-    public static function getServer($id) {
-        return Servers::where('servers.id', $id)
-            ->select('*')
-            ->leftJoin('users', 'users.user_id', '=', 'servers.owner')
-            ->first();
-    }
-
     public static function getServersByOwner($ownerId) {
         return Servers::where('owner', $ownerId)
             ->select('*')
@@ -176,4 +164,36 @@ class Servers extends Model {
         return array_values($data['chart']);
     }
 
+    public static function validate($validate){
+        $validator = new Validator;
+
+        $validation = $validator->validate($validate, [
+            'revision'     => ['required', function($value) {
+                $revision = Revisions::where('revision', $value)->first();
+                if (!$revision) {
+                    return ":attribute is not a valid revision.";
+                }
+            }],
+            'title'        => 'required|min:6|max:150',
+            'server_port'  => 'numeric|min:0|max:65535',
+            'server_ip'    => 'ipv4',
+            'website'      => 'url:http,https|max:255',
+            'callback_url' => 'url:http,https|max:255',
+            'discord_link' => 'url:https|max:255',
+            'banner_url'   => ['', function($value) {
+                if (substr($value, 0, 4) != "http" && !file_exists('public/img/banners/'.$value)) {
+                    return 'Image does not exist.';
+                }
+            }],
+            'meta_tags' => ['max:300', function($value) {
+                if (count($value) > 15) {
+                    return 'You can\'t have more than 15 meta tags.';
+                }
+            }],
+            'description' => 'required|min:7'
+        ]);
+
+        return $validation;
+   }
+   
 }
