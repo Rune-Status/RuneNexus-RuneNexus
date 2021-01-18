@@ -20,26 +20,12 @@ class Servers extends Model {
     }
 
     public static function getServer($id) {
-        $columns = [
-            'servers.id', 
-            'servers.title', 
-            'servers.revision', 
-            'servers.votes', 
-            'servers.banner_url', 
-            'servers.is_online', 
-            'servers.premium_expires',
-            'servers.owner', 
-            'servers.server_ip', 
-            'servers.server_port',
-            'servers.callback_url', 
-            'servers.website', 
-            'servers.description',
-            'users.username', 
-            'users.discriminator', 
-            'users.user_id',
-        ];
-
-        return Servers::select($columns)
+        return Servers::select([
+                'servers.*',
+                'users.username', 
+                'users.discriminator', 
+                'users.user_id',
+            ])
             ->where("servers.id", $id)
             ->orderBy('servers.id', 'DESC')
             ->leftJoin("users", "users.user_id", "=", "servers.owner")
@@ -195,5 +181,5 @@ class Servers extends Model {
 
         return $validation;
    }
-   
+
 }
