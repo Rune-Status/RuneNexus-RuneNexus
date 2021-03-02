@@ -41,7 +41,7 @@ class LoginController extends Controller {
                 'username'      => $userData['username'],
                 'email'         => $userData['email'],
                 'avatar'        => $userData['avatar'],
-                'roles'         => ['Member'],
+                'roles'         => json_encode(['Member']),
                 'join_date'     => time()
             ]
         );
@@ -57,7 +57,6 @@ class LoginController extends Controller {
             $user->avatar = $userData['avatar'];
         }
         
-        $user->roles = $this->getServerRoles($discord, $user);
         $user->update();
 
         $tokens = [
