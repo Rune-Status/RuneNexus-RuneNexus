@@ -44,7 +44,6 @@ class Servers extends Model {
                 'revision', 
                 'website',
                 'banner_url', 
-                'is_online',
                 'ping',
                 'last_ping',
                 'premium_expires',
@@ -54,7 +53,6 @@ class Servers extends Model {
             ->selectRaw(
                 'IF(premium_expires > '.time().', votes + (premium_level * 100), votes) as votes')
             ->where('website', '!=', null)
-            ->orderBy('is_online', 'DESC')
             ->orderBy('votes', 'DESC')
             ->orderBy('id', 'ASC')
             ->paginate(per_page);
@@ -71,7 +69,6 @@ class Servers extends Model {
                 'title', 
                 'revision', 
                 'banner_url', 
-                'is_online',
                 'ping',
                 'last_ping',
                 'premium_expires',
@@ -81,7 +78,6 @@ class Servers extends Model {
             ->selectRaw(
                 'IF(premium_expires > '.time().', votes + (premium_level * 100), votes) as votes')
             ->where('website', '!=', null)
-            ->orderBy('is_online', 'DESC')
             ->orderBy('votes', 'DESC')
             ->orderBy('id', 'ASC')
             ->paginate(per_page);
@@ -99,7 +95,6 @@ class Servers extends Model {
                 'revision',
                 'votes',
                 'banner_url', 
-                'is_online',
                 'premium_expires'
             )
             ->where('title', 'LIKE', '%'.$name.'%')
@@ -120,7 +115,6 @@ class Servers extends Model {
                 'revision',
                 'votes',
                 'banner_url', 
-                'is_online',
                 'premium_expires'
             )
             ->where('website', '!=', null)
