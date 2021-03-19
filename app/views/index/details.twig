@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             url: 'https://api.rune-nexus.com/server/graph',
             data: {
                 days: days,
-                server: "{{ server.id }}"
+                id: "{{ server.id }}"
             },
             type: 'GET',
             complete: function (data) {
